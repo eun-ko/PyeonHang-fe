@@ -8,84 +8,77 @@ export default function Warn() {
 	return (
 		<Wrapper>
 			<Img src="/logo_white.png"></Img>
-			<Title>잠깐만요!</Title>
-			<br />
-			<Cont>편행은 사용자가 희망하는</Cont>
-			<Cont>최적의 여행플랜을 제공해드리고자</Cont>
-			<Cont>여행 선호도 조사를 실행합니다.</Cont>
-			<Margin></Margin>
-			<Cont>고객님은 제시되는 이미지를 보고</Cont>
-			<Cont>본인의 호불호에 따라 버튼을 눌러주시면 됩니다.</Cont>
-			<Margin></Margin>
-			<Content>단, 편행의 여행 선호도 조사는 "편도행"입니다.</Content>
-			<Margin></Margin>
-			<Cont>각 이미지에 대한 호불호를 누르는 순간</Cont>
-			<Cont>다음 페이지로 넘어가며,</Cont>
-			<Cont>이전 페이지로 돌아갈 수 없으니</Cont>
-			<Cont>충분한 고려 이후에 눌러주세요</Cont>
-			<Margin></Margin>
-			<Link href="processing">
-				<a>
-					<Button>선호도 조사 시작</Button>
-				</a>
+			<Contents>
+				<Title>잠깐만요!</Title>
+				편행은 '사진 담기' 기능을 통해 <br />
+				사용자에게 맞는 <Bold>최적의 여행코스</Bold>를
+				<br />
+				산출해냅니다.
+				<br />
+				<br />
+				<br />
+				여행지에서 해당 사진과
+				<br />
+				비슷한 감성의 사진을 찍고 싶다면
+				<Img2 src="/heart.png" /> 를,
+				<br />
+				아니라면 <Img2 src="/x.png" />를<br />
+				눌러주세요!
+			</Contents>
+			<Link href="/processing">
+				<Button>선호도 조사 시작</Button>
 			</Link>
 		</Wrapper>
 	);
 }
+const Bold = styled.span`
+	font-weight: bold;
+`;
 const Img = styled.img`
 	width: 12rem;
 	height: 12rem;
+	margin-bottom: 5.3rem;
 `;
-const Logo = styled.button`
-	width: 4rem;
-	height: 4rem;
-	border: none;
-	margin-bottom: 4rem;
-	font-size: 2rem;
-	color: #f59f00;
-	background-color: white;
-	border-radius: 2.5rem;
-	box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0),
-		0 8px 16px -5px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
-`;
-const Margin = styled.div`
-	margin-bottom: 2rem;
+const Img2 = styled.img`
+	width: 2.7rem;
+	height: 2.7rem;
 `;
 const Title = styled.p`
 	font-size: 1.8rem;
 	font-weight: bold;
-	margin-bottom: 1rem;
+	margin-bottom: 3rem;
 	color: #f59f00;
 `;
 
-const Cont = styled.p`
+const Contents = styled.p`
 	font-size: 1.4rem;
-	margin: 0;
+	font-weight: 300;
+	font-weight: 300;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.69;
+	letter-spacing: normal;
+	text-align: center;
+	margin-bottom: 12rem;
+	height: 20.1rem;
 `;
-const Content = styled.p`
-	font-size: 1.4rem;
-	font-weight: bold;
-	margin: 0;
-`;
+
 const Wrapper = styled.div`
 	width: 100%;
-	height: fit-content;
-	min-height: 6.4rem;
-	margin-top: 4rem;
+	height: auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	margin-bottom: 4rem;
+	margin-bottom: 3.2rem;
 `;
 const Button = styled.button`
 	border: none;
-	border-radius: 1.6rem;
-	margin-top: 5rem;
-	width: 18.7rem;
-	height: 5.6rem;
 	font-size: 1.8rem;
 	font-weight: bold;
 	color: white;
 	background-color: #007aff;
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
+	width: 31.5rem;
+	height: 4rem;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
 `;

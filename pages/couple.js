@@ -210,22 +210,21 @@ const Single = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
-	border-bottom: 0.15rem solid #007aff;
 	font-size: 1.4rem;
 	font-weight: bold;
 	background-color: white;
-	color: #007aff;
+	color: #bdbdbd;
 	margin-right: 2rem;
 `;
 const Couple = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
-
+	border-bottom: 0.15rem solid #007aff;
 	font-size: 1.4rem;
 	font-weight: bold;
 	background-color: white;
-	color: #bdbdbd;
+	color: #007aff;
 	margin-right: 2rem;
 `;
 const Friends = styled.button`

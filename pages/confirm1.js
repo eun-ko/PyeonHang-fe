@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useRouter } from 'next/router';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
-import Button from 'react-bootstrap/Button';
-import Link from 'next/link';
-import axios from 'axios';
+import Router from 'next/router';
+
+import Cal from '../src/components/Cal';
 //import { DateRange } from 'react-date-range';
 //import 'react-date-range/dist/styles.css'; // main css file
 //import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -16,7 +13,7 @@ export default function Confirm() {
 	const handleFormChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
-	const router = useRouter();
+
 	const handleSubmit = (form) => {
 		if (
 			form.name.length === 0 ||
@@ -27,9 +24,7 @@ export default function Confirm() {
 			return false;
 		} else {
 			setForm({ ...form });
-			alert('입력되었습니다!');
-
-			router.push('/check');
+			Router.push('/check');
 		}
 	};
 
@@ -42,42 +37,49 @@ export default function Confirm() {
 	//]);
 	return (
 		<Wrapper>
-			<Title> 코스 1 </Title>
+			<R>
+				<Back onClick={() => Router.back()}>〈 </Back>
+				<Title>#통영_1박2일 #혼자</Title>
+			</R>
+			<Label>여행 날짜</Label>
 			{/*<DateRange
 				editableDateInputs={true}
 				onChange={(item) => setState([item.selection])}
 				moveRangeOnFirstSelection={false}
 				ranges={state}
 			/>*/}
-			<Form action="/check">
-				<Row>
-					<Label>이름</Label>
-					<Input
-						onChange={handleFormChange}
-						placeholder="이름을 입력해주세요"
-						type="text"
-						name="name"
-					/>
-				</Row>
-				<Row>
-					<Label>연락처</Label>
-					<Input
-						placeholder="연락처를 입력해주세요 ex)010-0000-0000"
-						name="phone"
-						onChange={handleFormChange}
-					/>
-				</Row>
-				<Row>
-					<Label>이메일</Label>
-					<Input
-						placeholder="이메일을 입력해주세요"
-						type="email"
-						name="email"
-						onChange={handleFormChange}
-					/>
-				</Row>
-				<Red>예약금 관련 안내</Red>
-				<Margin></Margin>
+			<Calen></Calen>
+			<Form>
+				<Label>여행자 이름</Label>
+				<Input
+					onChange={handleFormChange}
+					placeholder="예약을 위해 필요한 정보입니다."
+					type="text"
+					name="name"
+				/>
+
+				<Label>전화번호</Label>
+				<Input
+					placeholder="예약을 위해 필요한 정보입니다."
+					name="phone"
+					onChange={handleFormChange}
+				/>
+
+				<Label>이메일</Label>
+				<Input
+					placeholder="PDF 전송을 위해 필요한 정보입니다."
+					type="email"
+					name="email"
+					onChange={handleFormChange}
+				/>
+
+				<Announce>
+					입력해주신 연락처로 예약 가능 여부,
+					<br />
+					예약금 관련 안내 및 여행코스를 전송해드립니다.
+					<br />
+					정확하게 입력했는지 다시 한번 확인 부탁드립니다.
+				</Announce>
 				<Button onClick={() => handleSubmit(form)}>
 					예약 가능여부 확인하기
 				</Button>
@@ -85,8 +87,43 @@ export default function Confirm() {
 		</Wrapper>
 	);
 }
-const Margin = styled.div`
-	margin-bottom: 2rem;
+const R = styled.div`
+	display: flex;
+	margin-bottom: 4.8rem;
+`;
+const Back = styled.button`
+	width: 3.2rem;
+	padding: 0;
+	padding-right: 2rem;
+
+	height: 3.2rem;
+	color: black;
+	background-color: white;
+	border: none;
+	font-size: 2.4rem;
+	font-weight: bold;
+`;
+const Calen = styled.div`
+	width: 31.4rem;
+	height: 6rem;
+	border-radius: 0.5rem;
+
+	border: solid 0.1rem #333333;
+	margin-bottom: 2.6rem;
+`;
+
+const Button = styled.button`
+	border: none;
+	border-radius: 0.5rem;
+	width: 31.5rem;
+	height: 4rem;
+	font-size: 1.8rem;
+	font-weight: bold;
+	color: white;
+	background-color: #007aff;
+	margin-top: 5.4rem;
+
+	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
 `;
 
 const Wrapper = styled.div`
@@ -94,51 +131,54 @@ const Wrapper = styled.div`
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
-	padding-top: 4rem;
-	align-items: center;
+	padding-top: 3rem;
+	padding-right: 3rem;
+	padding-left: 3rem;
+	padding-bottom: 3rem;
 `;
 const Title = styled.p`
-	font-size: 1.4rem;
-	margin: 1rem 0;
+	font-size: 1.8rem;
 	font-weight: bold;
+	padding-left: 5rem;
+	margin: 0;
+	padding-top: 0.5rem;
 `;
 
-const Row = styled.div`
-	display: flex;
-	flex-direction: row;
-	width: 80%;
-	justify-content: space-evenly;
-`;
 const Input = styled.input`
-	width: 70%;
-	height: 2rem;
-	margin-bottom: 1rem;
-	text-align: center;
-	// border-radius: 0.5rem;
-	// border: none;
-	border: 1px solid blue;
+	width: 100%;
+	height: 3.6rem;
+	border-radius: 0.3rem;
+	margin-bottom: 1.5rem;
+	padding-left: 1rem;
+	font-size: 1.3rem;
+	background-color: #f0f0f0;
+	color: #bdbdbd;
+	border: none;
 `;
 const Form = styled.form`
-	background-color: white;
 	width: 100%;
-	//margin: 20px 0px;
+	margin-bottom: 2rem;
 	//padding: 40px 40px;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
-	align-items: center;
+	//justify-content: space-between;
+
 	border-radius: 15px;
 	//box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
 	//	0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
 `;
 
 const Label = styled.div`
-	font-size: 1rem;
-	text-align: center;
-	margin: auto;
-	margin-bottom: 1rem;
+	font-size: 1.3rem;
+	margin-bottom: 1.3rem;
+	text-align: left;
+	font-weight: normal;
 `;
-const Red = styled.div`
-	font-size: 1rem;
-	color: red;
+const Announce = styled.div`
+	font-size: 1.3rem;
+	font-weight: normal;
+	color: #4f4f4f;
+	padding-top: 3rem;
+	padding-bottom: 3rem;
+	text-align: center;
 `;

@@ -3,7 +3,7 @@ import App from 'next/app';
 import Head from 'next/head';
 
 import styled, { createGlobalStyle } from 'styled-components';
-
+import 'react-dates/lib/css/_datepicker.css';
 const GlobalStyle = createGlobalStyle`
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 @media (max-width: 262px) {
@@ -46,7 +46,7 @@ body {
   padding: 0;
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 0.1rem;
-  background-color:#ccc;
+  background-color:white;
 }
 ::-webkit-scrollbar {
   display: none;
@@ -93,7 +93,7 @@ const Wrapper = styled.div`
 
 const Grey = styled.div`
 	flex: 1;
-	background-color: #ccc;
+	background-color: white;
 	z-index: 100;
 `;
 

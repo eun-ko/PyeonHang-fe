@@ -6,56 +6,84 @@ import Link from 'next/link';
 export default function Check() {
 	return (
 		<Wrapper>
-			<Img2 src="/logo_white.png"></Img2>
+			<Logo src="/logo_white.png"></Logo>
 			<Img src="/sent_messages_.png" />
 			<Title>감사합니다!</Title>
-			<Cont>1시간내로</Cont>
-			<Cont>예약 가능여부 확인 후,</Cont>
-			<Cont>연락처로 연락드리겠습니다.</Cont>
+			<Cont>
+				2시간내로 예약 가능 여부 확인 후,
+				<br />
+				카카오톡 채널 <Bold>편행</Bold>으로 연락드리겠습니다.
+			</Cont>
+			<KaKaotalk src="/kakaotalk channel.png" />
 			<Link href="/">
 				<Button>서비스 소개로 돌아가기</Button>
 			</Link>
 		</Wrapper>
 	);
 }
-const Img2 = styled.img`
+const KaKaotalk = styled.img`
+	width: 16.7rem;
+	margin-top: 1rem;
+	height: 3.6rem;
+	//border-radius: 0.8rem;
+	//background-color: #fbe24d;
+	//font-family: NanumSquareOTF;
+	//font-size: 1rem;
+	//font-weight: bold;
+	//font-stretch: normal;
+	//font-style: normal;
+	//text-align: center;
+	//padding-top: 0.4rem;
+	//padding-bottom: 0.4rem;
+`;
+const Logo = styled.img`
 	width: 16rem;
-	height: auto;
+	height: 16rem;
 `;
 const Img = styled.img`
 	width: 26.6rem;
 	height: 20rem;
 `;
-const Margin = styled.div`
-	margin-bottom: 8rem;
-`;
+
 const Wrapper = styled.div`
 	width: 100%;
 	height: fit-content;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 6rem 0;
+	padding: 3rem;
+	margin-top: 2.8rem;
 `;
 const Cont = styled.p`
 	font-size: 1.4rem;
+	font-family: NanumSquareOTF;
+	font-weight: normal;
+	font-stretch: normal;
+	font-style: normal;
+	line-height: 1.69;
+	letter-spacing: -0.21px;
+	text-align: center;
 `;
 const Title = styled.div`
 	margin-top: 1rem;
 	font-size: 1.8rem;
 	font-weight: bold;
 	margin-bottom: 1rem;
-	color: #3366ff;
+	color: #007aff;
+`;
+const Bold = styled.span`
+	font-weight: bold;
 `;
 const Button = styled.button`
 	border: none;
-	border-radius: 1.6rem;
-	margin-top: 5rem;
-	width: 25.7rem;
-	height: 5.6rem;
+	margin-top: 6rem;
+	margin-bottom: 3rem;
 	font-size: 1.8rem;
 	font-weight: bold;
 	color: white;
 	background-color: #007aff;
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
+	width: 31.5rem;
+	height: 4rem;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
 `;

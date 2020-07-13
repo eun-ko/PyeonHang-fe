@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { ProgressBar } from 'react-bootstrap';
 // import axios from 'axios';
 
 export default function Processing() {
@@ -27,58 +26,46 @@ export default function Processing() {
 	// 	getImg();
 	// }, []);
 	return (
-		<Wrapper>
-			{/*{isLoading ? <Loader>Loading...</Loader> : <Img2 src="/pic.png"></Img2>}*/}
-			<Img2 src="/pic.png"></Img2>
-			<Row>
-				<Link href="/processing">
-					<Img src="/x.png" />
-				</Link>
-				<Link href="/result">
-					<Img src="/heart.png" />
-				</Link>
-			</Row>
-		</Wrapper>
+		<>
+			<ProgressBar />
+			<Wrapper>
+				{/*{isLoading ? <Loader>Loading...</Loader> : <Img2 src="/pic.png"></Img2>}*/}
+				<Img2 src="/pic.png"></Img2>
+				<Bottom>
+					<Link href="/processing">
+						<Img src="/x.png" />
+					</Link>
+					<Link href="/result">
+						<Img src="/heart.png" />
+					</Link>
+				</Bottom>
+			</Wrapper>
+		</>
 	);
 }
-const LeftButton = styled.button`
-	width: 8rem;
-	height: 8rem;
-	border: none;
-	font-size: 2rem;
-	color: #f59f00;
-	background-color: white;
-	border-radius: 2.5rem;
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
-`;
-const RightButton = styled.button`
-	width: 4rem;
-	height: 4rem;
-	margin-left: 14rem;
-	border: none;
-	font-size: 2rem;
-	color: #3366ff;
-	background-color: white;
-	border-radius: 2.5rem;
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
+const ProgressBar = styled.div`
+	position: fixed;
+	width: 24rem;
+	height: 0.4rem;
+	background-color: #007aff;
 `;
 const Img = styled.img`
 	width: 8rem;
 	height: 8rem;
 `;
 const Img2 = styled.img`
-	width: 100%;
-	height: auto;
+	width: 37.5rem;
+	height: 51.6rem;
 `;
 const Wrapper = styled.div`
 	width: 100%;
+	margin-top: 0.4rem;
 	//height: fit-content;
 	min-height: 51.6rem;
 	display: flex;
 	flex-direction: column;
-	align-items: center;
 `;
-const Row = styled.div`
+const Bottom = styled.div`
 	display: flex;
 	padding: 5rem;
 	justify-content: space-between;
@@ -88,18 +75,4 @@ const Row = styled.div`
 	position: fixed;
 	bottom: 0rem;
 	background-color: white;
-`;
-
-const Title = styled.p`
-	font-size: 1.5rem;
-	margin-bottom: 3rem;
-	font-weight: bold;
-	color: #3366ff;
-`;
-const Loader = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 `;

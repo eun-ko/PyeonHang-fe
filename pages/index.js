@@ -2,13 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Intro from '../src/components/Intro';
-import Start from '../src/components/BeforeStart';
 
 export default function Home() {
 	return (
 		<Wrapper>
 			<Intro />
-			<Start />
 		</Wrapper>
 	);
 }
