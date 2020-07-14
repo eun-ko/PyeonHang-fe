@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
+import axios from 'axios';
 
 import Cal from '../src/components/Cal';
 //import { DateRange } from 'react-date-range';
@@ -24,6 +25,15 @@ export default function Confirm() {
 			return false;
 		} else {
 			setForm({ ...form });
+			//axios
+			//.post(process.env.local.API_HOST+"/reservation",form)
+			//.then((response) => {
+			//	console.log(response);
+			//	console.log(form.name);
+			//	console.log(form.email);
+			//	console.log(form.phone);
+			//})
+			//.catch((err)=>console.log(err));
 			Router.push('/check');
 		}
 	};
@@ -39,7 +49,7 @@ export default function Confirm() {
 		<Wrapper>
 			<R>
 				<Back onClick={() => Router.back()}>〈 </Back>
-				<Title>#통영_1박2일 #혼자</Title>
+				<Title>#통영_1박2일 #친구</Title>
 			</R>
 			<Label>여행 날짜</Label>
 			{/*<DateRange
@@ -87,6 +97,7 @@ export default function Confirm() {
 		</Wrapper>
 	);
 }
+
 const R = styled.div`
 	display: flex;
 	margin-bottom: 4.8rem;
@@ -95,7 +106,9 @@ const Back = styled.button`
 	width: 3.2rem;
 	padding: 0;
 	padding-right: 2rem;
-
+	:focus {
+		outline: 0;
+	}
 	height: 3.2rem;
 	color: black;
 	background-color: white;
@@ -104,10 +117,9 @@ const Back = styled.button`
 	font-weight: bold;
 `;
 const Calen = styled.div`
-	width: 31.4rem;
+	width: 100%;
 	height: 6rem;
 	border-radius: 0.5rem;
-
 	border: solid 0.1rem #333333;
 	margin-bottom: 2.6rem;
 `;
@@ -115,14 +127,13 @@ const Calen = styled.div`
 const Button = styled.button`
 	border: none;
 	border-radius: 0.5rem;
-	width: 31.5rem;
+	width: 100%;
 	height: 4rem;
 	font-size: 1.8rem;
 	font-weight: bold;
 	color: white;
 	background-color: #007aff;
 	margin-top: 5.4rem;
-
 	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
 `;
 
@@ -158,14 +169,9 @@ const Input = styled.input`
 const Form = styled.form`
 	width: 100%;
 	margin-bottom: 2rem;
-	//padding: 40px 40px;
 	display: flex;
 	flex-direction: column;
-	//justify-content: space-between;
-
 	border-radius: 15px;
-	//box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25),
-	//	0 8px 16px -8px rgba(0, 0, 0, 0.3), 0 -6px 16px -6px rgba(0, 0, 0, 0.025);
 `;
 
 const Label = styled.div`

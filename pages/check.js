@@ -25,16 +25,6 @@ const KaKaotalk = styled.img`
 	width: 16.7rem;
 	margin-top: 1rem;
 	height: 3.6rem;
-	//border-radius: 0.8rem;
-	//background-color: #fbe24d;
-	//font-family: NanumSquareOTF;
-	//font-size: 1rem;
-	//font-weight: bold;
-	//font-stretch: normal;
-	//font-style: normal;
-	//text-align: center;
-	//padding-top: 0.4rem;
-	//padding-bottom: 0.4rem;
 `;
 const Logo = styled.img`
 	width: 16rem;
@@ -82,7 +72,7 @@ const Button = styled.button`
 	font-weight: bold;
 	color: white;
 	background-color: #007aff;
-	width: 31.5rem;
+	width: 100%;
 	height: 4rem;
 	border-radius: 0.5rem;
 	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);

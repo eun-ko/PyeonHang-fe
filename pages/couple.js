@@ -26,7 +26,7 @@ export default function Result() {
 			<Header>
 				<Title>누구와 떠날까요?</Title>
 				<Row>
-					<Single onClick={() => Router.push('/result')}>혼자</Single>
+					<Single onClick={() => Router.push('/single')}>혼자</Single>
 					<Couple onClick={() => Router.push('/couple')}>연인</Couple>
 					<Friends onClick={() => Router.push('/friends')}>친구</Friends>
 				</Row>
@@ -137,7 +137,10 @@ export default function Result() {
 					<Hashtag>#알록달록 #벽화마을 #사진맛집 </Hashtag>
 				</Info>
 				<Bottom>
-					<Link href="/confirm1">
+					<Link href="/warning">
+						<Replay>다시 하기</Replay>
+					</Link>
+					<Link href="/couple_confirm">
 						<Button>코스 결정</Button>
 					</Link>
 				</Bottom>
@@ -165,7 +168,7 @@ const Course = styled.div`
 	flex-direction: column;
 	justify-content: flex-end;
 	padding-left: 20rem;
-	padding-right: 3rem;
+	padding-right: 2rem;
 `;
 const R = styled.div`
 	display: flex;
@@ -215,6 +218,9 @@ const Single = styled.button`
 	background-color: white;
 	color: #bdbdbd;
 	margin-right: 2rem;
+	:focus {
+		outline: 0;
+	}
 `;
 const Couple = styled.button`
 	width: 10rem;
@@ -226,6 +232,9 @@ const Couple = styled.button`
 	background-color: white;
 	color: #007aff;
 	margin-right: 2rem;
+	:focus {
+		outline: 0;
+	}
 `;
 const Friends = styled.button`
 	width: 10rem;
@@ -235,6 +244,9 @@ const Friends = styled.button`
 	font-weight: bold;
 	background-color: white;
 	color: #bdbdbd;
+	:focus {
+		outline: 0;
+	}
 `;
 const Title = styled.p`
 	font-size: 1.8rem;
@@ -246,17 +258,28 @@ const Title = styled.p`
 const Button = styled.button`
 	border: none;
 	border-radius: 0.5rem;
-	width: 31.5rem;
+	width: 14.2rem;
 	height: 4rem;
 	font-size: 1.8rem;
 	font-weight: bold;
 	color: white;
 	background-color: #007aff;
-	box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
+`;
+const Replay = styled.button`
+	width: 14.2rem;
+	border: none;
+	height: 4rem;
+	font-size: 1.8rem;
+	font-weight: bold;
+	border-radius: 0.5rem;
+	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
+	background-color: #e0e0e0;
+	color: white;
 `;
 
 const Hashtag = styled.div`
-	width: 31.5rem;
+	width: 100%;
 	height: 4.8rem;
 	background-color: #f0f0f0;
 	font-size: 1.4rem;
@@ -293,7 +316,7 @@ const Info = styled.div`
 	padding-left: 3rem;
 	padding-right: 3rem;
 	padding-bottom: 0.5rem;
-	width: 37.5rem;
+	width: 100%;
 `;
 const Exp = styled.p`
 	font-size: 1.4rem;
@@ -312,7 +335,7 @@ const Price = styled.p`
 	font-weight: 300;
 `;
 const Destination = styled.div`
-	width: 37.5rem;
+	width: 100%;
 	height: 8rem;
 	font-size: 2.4rem;
 	padding-left: 3rem;
@@ -322,29 +345,22 @@ const Destination = styled.div`
 `;
 const Header = styled.div`
 	position: fixed;
-	width: 37.5rem;
+	width: 100%;
 	height: 9.5rem;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	margin: 0;
-	//padding: 1rem;
 	background-color: #fff;
-	box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+	box-shadow: 0 0.3rem 0.6rem 0 rgba(0, 0, 0, 0.16);
 	//z-index: 10;
 `;
 const Wrapper = styled.div`
 	width: 100%;
 	height: fit-content;
 	margin: 0;
-	//flex-direction: column;
 	padding-top: 9.5rem;
-	//width: 100%;
-	////height: fit-content;
-	//padding-top: 5rem;
 	margin-bottom: 10rem;
-	//display: flex;
-	//flex-direction: column;
 `;
 
 const Bottom = styled.div`
@@ -353,15 +369,15 @@ const Bottom = styled.div`
 	padding-right: 3rem;
 	justify-content: space-between;
 	align-items: center;
-	width: 37.5rem;
+	width: 100%;
 	height: 7rem;
 	position: fixed;
 	bottom: 0rem;
 	border-radius: 1rem 1rem 0 0;
 	background-color: white;
-	box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.25);
+	box-shadow: 0 0.2rem 1rem 0 rgba(0, 0, 0, 0.25);
 `;
 const Img = styled.img`
-	width: 37.5rem;
-	height: 37.5rem;
+	width: 100%;
+	height: auto;
 `;

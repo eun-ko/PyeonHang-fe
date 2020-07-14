@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Router from 'next/router';
+import axios from 'axios';
+
+import Loading from '../src/components/Loading';
 import SwipeableViews from 'react-swipeable-views';
 
 export default function Result() {
+	const [isLoading, setLoading] = useState(false);
+	//받아오면 setLoading false해주기
+	const [course, setCourse] = useState({
+		city: '',
+
+		roomPrice: 0,
+		roomName: '',
+	});
+
 	const styles = {
 		slide: {
 			padding: 15,
@@ -23,128 +35,134 @@ export default function Result() {
 	};
 	return (
 		<>
-			<Header>
-				<Title>누구와 떠날까요?</Title>
-				<Row>
-					<Single onClick={() => Router.push('/single')}>혼자</Single>
-					<Couple onClick={() => Router.push('/couple')}>연인</Couple>
-					<Friends onClick={() => Router.push('/friends')}>친구</Friends>
-				</Row>
-			</Header>
-			<Wrapper>
-				<Img src="/9-grid.png" />
-				<Destination>#통영_1박2일</Destination>
-				<Course>
-					<R>
-						<FinalPrice>55,000원</FinalPrice>
-						<Badge>최저가</Badge>
-					</R>
-					<Desc>
-						슬로비게스트하우스 20,000원
-						<br />
-						스카이라인루지 통영 30,000원
-						<br />
-						여행 플랜 pdf 5,000원
-					</Desc>
-					<Warn>주의사항</Warn>
-				</Course>
-				<Gray></Gray>
-				<Info>
-					<Reserv>예약 숙소</Reserv>
-					<Name>슬로비게스트하우스</Name>
-					<Exp>
-						시설, 조식, 위치, 서비스 어느것 하나 빠지지 않는 가성비 호텔
-					</Exp>
-					<CImg></CImg>
-					{/*<SwipeableViews enableMouseEvents>
+			{isLoading ? (
+				<Loading />
+			) : (
+				<>
+					<Header>
+						<Title>누구와 떠날까요?</Title>
+						<Row>
+							<Single onClick={() => Router.push('/single')}>혼자</Single>
+							<Couple onClick={() => Router.push('/couple')}>연인</Couple>
+							<Friends onClick={() => Router.push('/friends')}>친구</Friends>
+						</Row>
+					</Header>
+					<Wrapper>
+						<Img src="/9-grid.png" />
+						<Destination>#통영_1박2일</Destination>
+						<Course>
+							<R>
+								<FinalPrice>55,000원</FinalPrice>
+								<Badge>최저가</Badge>
+							</R>
+							<Desc>
+								슬로비게스트하우스 20,000원
+								<br />
+								스카이라인루지 통영 30,000원
+								<br />
+								여행 플랜 pdf 5,000원
+							</Desc>
+							<Warn>주의사항</Warn>
+						</Course>
+						<Gray></Gray>
+						<Info>
+							<Reserv>예약 숙소</Reserv>
+							<Name>슬로비게스트하우스</Name>
+							<Exp>
+								시설, 조식, 위치, 서비스 어느것 하나 빠지지 않는 가성비 호텔
+							</Exp>
+							<CImg></CImg>
+							{/*<SwipeableViews enableMouseEvents>
 						<div style={Object.assign({}, styles.slide, styles.slide1)}>1</div>
 						<div style={Object.assign({}, styles.slide, styles.slide2)}></div>
 						<div style={Object.assign({}, styles.slide, styles.slide3)}>
 							<CImg src="/white.png"></CImg>
 						</div>
 					</SwipeableViews>*/}
-					<Hashtag>#바다앞카페 #한식조식무료 #카약무료</Hashtag>
-				</Info>
-				<Info>
-					<Reserv>예약 액티비티</Reserv>
-					<Name>스카이라인루지 통영</Name>
-					<Exp>통영에서 루지를 타고 스릴을 느껴봐요!</Exp>
-					<CImg></CImg>
-					<Hashtag>#통영루지 #스릴 #존잼</Hashtag>
-				</Info>
-				<Gray></Gray>
-				<Info>
-					<Type>식당/카페</Type>
-					<Name>벅수다찌</Name>
-					<Exp>통영 현지인 추천 최고의 맛집</Exp>
-					<Price>
-						<Won src="/m.png" />
-						3~4만원대
-					</Price>
-					<CImg></CImg>
-					<Hashtag>#통영현지맛집 #정갈한밥상 #통영식술</Hashtag>
-				</Info>
-				<Info>
-					<Name>할매 우짜</Name>
-					<Exp>통영먹거리 서호시장 통영우짜 맛집</Exp>
-					<Price>
-						<Won src="/m.png" /> 1만원 이하
-					</Price>
-					<CImg></CImg>
-					<Hashtag>#우동과짜장 #방송다수출연 #국물이찐</Hashtag>
-				</Info>
-				<Info>
-					<Name>통영해물가</Name>
-					<Exp>통영 물회 푸짐하고 맛있는 곳</Exp>
-					<Price>
-						<Won src="/m.png" /> 2~3만원대
-					</Price>
-					<CImg></CImg>
-					<Hashtag>#통영물회 #푸짐한인심 #방송다수출연</Hashtag>
-				</Info>
-				<Info>
-					<Name>한양식당</Name>
-					<Exp>육지도에서 푸짐한 해물 짬뽕!</Exp>
-					<Price>
-						<Won src="/m.png" /> 1만원 이하
-					</Price>
-					<CImg></CImg>
-					<Hashtag>#해물가득 #현지인추천 #국물이끝내줌</Hashtag>
-				</Info>
-				<Info>
-					<Name>통영 오미사꿀빵</Name>
-					<Exp>통영에서 제일 유명한 꿀빵!</Exp>
-					<Price>
-						<Won src="/m.png" /> 1만원 이하
-					</Price>
-					<CImg></CImg>
-					<Hashtag>#통영카페 #생딸기라떼 #딸기케이크</Hashtag>
-				</Info>
-				<Info>
-					<Name>하루케이크</Name>
-					<Exp>딸기 케이크 맛집</Exp>
-					<Price>
-						<Won src="/m.png" /> 1만원 이하
-					</Price>
-					<CImg></CImg>
-					<Hashtag>#tv다수출연 #오미사꿀빵 #통영현지맛집</Hashtag>
-				</Info>
+							<Hashtag>#바다앞카페 #한식조식무료 #카약무료</Hashtag>
+						</Info>
+						<Info>
+							<Reserv>예약 액티비티</Reserv>
+							<Name>스카이라인루지 통영</Name>
+							<Exp>통영에서 루지를 타고 스릴을 느껴봐요!</Exp>
+							<CImg></CImg>
+							<Hashtag>#통영루지 #스릴 #존잼</Hashtag>
+						</Info>
+						<Gray></Gray>
+						<Info>
+							<Type>식당/카페</Type>
+							<Name>벅수다찌</Name>
+							<Exp>통영 현지인 추천 최고의 맛집</Exp>
+							<Price>
+								<Won src="/m.png" />
+								3~4만원대
+							</Price>
+							<CImg></CImg>
+							<Hashtag>#통영현지맛집 #정갈한밥상 #통영식술</Hashtag>
+						</Info>
+						<Info>
+							<Name>할매 우짜</Name>
+							<Exp>통영먹거리 서호시장 통영우짜 맛집</Exp>
+							<Price>
+								<Won src="/m.png" /> 1만원 이하
+							</Price>
+							<CImg></CImg>
+							<Hashtag>#우동과짜장 #방송다수출연 #국물이찐</Hashtag>
+						</Info>
+						<Info>
+							<Name>통영해물가</Name>
+							<Exp>통영 물회 푸짐하고 맛있는 곳</Exp>
+							<Price>
+								<Won src="/m.png" /> 2~3만원대
+							</Price>
+							<CImg></CImg>
+							<Hashtag>#통영물회 #푸짐한인심 #방송다수출연</Hashtag>
+						</Info>
+						<Info>
+							<Name>한양식당</Name>
+							<Exp>육지도에서 푸짐한 해물 짬뽕!</Exp>
+							<Price>
+								<Won src="/m.png" /> 1만원 이하
+							</Price>
+							<CImg></CImg>
+							<Hashtag>#해물가득 #현지인추천 #국물이끝내줌</Hashtag>
+						</Info>
+						<Info>
+							<Name>통영 오미사꿀빵</Name>
+							<Exp>통영에서 제일 유명한 꿀빵!</Exp>
+							<Price>
+								<Won src="/m.png" /> 1만원 이하
+							</Price>
+							<CImg></CImg>
+							<Hashtag>#통영카페 #생딸기라떼 #딸기케이크</Hashtag>
+						</Info>
+						<Info>
+							<Name>하루케이크</Name>
+							<Exp>딸기 케이크 맛집</Exp>
+							<Price>
+								<Won src="/m.png" /> 1만원 이하
+							</Price>
+							<CImg></CImg>
+							<Hashtag>#tv다수출연 #오미사꿀빵 #통영현지맛집</Hashtag>
+						</Info>
 
-				<Info>
-					<Name>동피랑 벽화마을</Name>
-					<Exp>인스타 감성 200% 인생샷 보장!</Exp>
-					<CImg></CImg>
-					<Hashtag>#알록달록 #벽화마을 #사진맛집 </Hashtag>
-				</Info>
-				<Bottom>
-					<Link href="/warning">
-						<Replay>다시 하기</Replay>
-					</Link>
-					<Link href="/friends_confirm">
-						<Button>코스 결정</Button>
-					</Link>
-				</Bottom>
-			</Wrapper>
+						<Info>
+							<Name>동피랑 벽화마을</Name>
+							<Exp>인스타 감성 200% 인생샷 보장!</Exp>
+							<CImg></CImg>
+							<Hashtag>#알록달록 #벽화마을 #사진맛집 </Hashtag>
+						</Info>
+						<Bottom>
+							<Link href="/warning">
+								<Replay>다시 하기</Replay>
+							</Link>
+							<Link href="/single_confirm">
+								<Button>코스 결정</Button>
+							</Link>
+						</Bottom>
+					</Wrapper>
+				</>
+			)}
 		</>
 	);
 }
@@ -161,17 +179,17 @@ const Warn = styled.div`
 	font-size: 1.2rem;
 	font-weight: normal;
 	text-algin: right;
-	margin-left: 9rem;
+	margin-left: 7rem;
 `;
 const Course = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
-	padding-left: 20rem;
+	padding-left: 18rem;
 	padding-right: 2rem;
 `;
 const R = styled.div`
 	display: flex;
+	text-align: right;
 	justify-content: flex-end;
 `;
 const FinalPrice = styled.div`
@@ -213,10 +231,11 @@ const Single = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
+	border-bottom: 0.15rem solid #007aff;
 	font-size: 1.4rem;
 	font-weight: bold;
 	background-color: white;
-	color: #bdbdbd;
+	color: #007aff;
 	margin-right: 2rem;
 	:focus {
 		outline: 0;
@@ -226,13 +245,13 @@ const Couple = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
-	color: #bdbdbd;
-	font-size: 1.4rem;
-	font-weight: bold;
-	background-color: white;
 	:focus {
 		outline: 0;
 	}
+	font-size: 1.4rem;
+	font-weight: bold;
+	background-color: white;
+	color: #bdbdbd;
 	margin-right: 2rem;
 `;
 const Friends = styled.button`
@@ -240,10 +259,9 @@ const Friends = styled.button`
 	height: 3rem;
 	border: none;
 	font-size: 1.4rem;
-	border-bottom: 0.15rem solid #007aff;
 	font-weight: bold;
 	background-color: white;
-	color: #007aff;
+	color: #bdbdbd;
 	:focus {
 		outline: 0;
 	}

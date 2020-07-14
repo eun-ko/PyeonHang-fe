@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import Router from 'next/router';
 import Link from 'next/link';
-// import axios from 'axios';
+import axios from 'axios';
 
 export default function Processing() {
-	const [isLoading, setLoading] = useState(false);
-	const [rating, setRating] = useState(0);
+	const [progress, setProgress] = useState(60);
+	//const [img, setImg] = useState(null);
+
+	//const handleProgressBar = () => {
+	//	setProgress(progress + 10);
+	//};
+	//const getImg = async () => {
+	//	const img = await axios
+	//		.get(process.env.local.API_HOST + '/sample-data')
+	//		.then((res) => {
+	//			console.log(res);
+	//			handleProgressBar();
+	//			return res.data.sample_img;
+	//		})
+	//		.catch((err) => console.log(err));
+	//	setImg(img);
+	//};
+
 	// const getImg = async() = {
 	// await axios
 	// 	.get('https://yts-proxy.now.sh/list_movies.json?sort_by=rating')
@@ -27,17 +44,16 @@ export default function Processing() {
 	// }, []);
 	return (
 		<>
-			<ProgressBar />
+			<ProgressBar num={progress} />
 			<Wrapper>
-				{/*{isLoading ? <Loader>Loading...</Loader> : <Img2 src="/pic.png"></Img2>}*/}
-				<Img2 src="/pic.png"></Img2>
+				{/*<Img2 src={img}></Img2>*/}
 				<Bottom>
-					<Link href="/processing">
+					<Button onClick={() => Router.push('/single')}>
 						<Img src="/x.png" />
-					</Link>
-					<Link href="/result">
+					</Button>
+					<Button onClick={() => Router.push('/single')}>
 						<Img src="/heart.png" />
-					</Link>
+					</Button>
 				</Bottom>
 			</Wrapper>
 		</>
@@ -45,21 +61,29 @@ export default function Processing() {
 }
 const ProgressBar = styled.div`
 	position: fixed;
-	width: 24rem;
-	height: 0.4rem;
+	width: ${(props) => (props.num ? props.num : 0)}%;
+	height: 0.5rem;
 	background-color: #007aff;
+`;
+const Button = styled.button`
+	:focus {
+		outline: 0;
+	}
+	border: none;
+	background: none;
 `;
 const Img = styled.img`
 	width: 8rem;
 	height: 8rem;
+	margin-right: 9rem;
 `;
 const Img2 = styled.img`
-	width: 37.5rem;
-	height: 51.6rem;
+	width: 100%;
+	height: auto;
 `;
 const Wrapper = styled.div`
 	width: 100%;
-	margin-top: 0.4rem;
+	margin-top: 0.5rem;
 	//height: fit-content;
 	min-height: 51.6rem;
 	display: flex;
@@ -68,11 +92,11 @@ const Wrapper = styled.div`
 const Bottom = styled.div`
 	display: flex;
 	padding: 5rem;
-	justify-content: space-between;
 	align-items: center;
-	width: 37.5rem;
+	width: 100%;
 	height: 12rem;
 	position: fixed;
 	bottom: 0rem;
 	background-color: white;
+	//왜 밖으로 나가지..?
 `;
