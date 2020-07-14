@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
 import axios from 'axios';
-
 import Cal from '../src/components/Cal';
 //import { DateRange } from 'react-date-range';
 //import 'react-date-range/dist/styles.css'; // main css file
@@ -45,6 +44,7 @@ export default function Confirm() {
 	//		key: 'selection',
 	//	},
 	//]);
+
 	return (
 		<Wrapper>
 			<R>
@@ -59,6 +59,7 @@ export default function Confirm() {
 				ranges={state}
 			/>*/}
 			<Calen></Calen>
+
 			<Form>
 				<Label>여행자 이름</Label>
 				<Input
