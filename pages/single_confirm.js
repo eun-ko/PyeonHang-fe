@@ -2,10 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
 import axios from 'axios';
-import Cal from '../src/components/Cal';
-//import { DateRange } from 'react-date-range';
-//import 'react-date-range/dist/styles.css'; // main css file
-//import 'react-date-range/dist/theme/default.css'; // theme css file
+import { DatePicker } from 'antd';
 
 export default function Confirm() {
 	const [form, setForm] = useState({ name: '', phone: '', email: '' });
@@ -37,14 +34,13 @@ export default function Confirm() {
 		}
 	};
 
-	//const [state, setState] = useState([
-	//	{
-	//		startDate: new Date(),
-	//		endDate: null,
-	//		key: 'selection',
-	//	},
-	//]);
-
+	const { RangePicker } = DatePicker;
+	const pickerStyle = {
+		width: '100%',
+		height: '6rem',
+		border: 'solid 0.1rem #333333',
+		borderRadius: '0.5rem',
+	};
 	return (
 		<Wrapper>
 			<R>
@@ -52,13 +48,7 @@ export default function Confirm() {
 				<Title>#통영_1박2일 #혼자</Title>
 			</R>
 			<Label>여행 날짜</Label>
-			{/*<DateRange
-				editableDateInputs={true}
-				onChange={(item) => setState([item.selection])}
-				moveRangeOnFirstSelection={false}
-				ranges={state}
-			/>*/}
-			<Calen></Calen>
+			<RangePicker style={pickerStyle} />
 
 			<Form>
 				<Label>여행자 이름</Label>
@@ -117,14 +107,6 @@ const Back = styled.button`
 	font-size: 2.4rem;
 	font-weight: bold;
 `;
-const Calen = styled.div`
-	width: 100%;
-	height: 6rem;
-	border-radius: 0.5rem;
-	border: solid 0.1rem #333333;
-	margin-bottom: 2.6rem;
-`;
-
 const Button = styled.button`
 	border: none;
 	border-radius: 0.5rem;
@@ -172,7 +154,7 @@ const Form = styled.form`
 	margin-bottom: 2rem;
 	display: flex;
 	flex-direction: column;
-	border-radius: 15px;
+	margin-top: 2.6rem;
 `;
 
 const Label = styled.div`
