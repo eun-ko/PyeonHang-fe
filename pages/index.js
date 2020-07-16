@@ -84,7 +84,7 @@ export default function Home() {
 				<Review>
 					<ReviewContents>
 						<Emoji>😘</Emoji>
-						바로 떠나고 싶은데 알아볼게 많아서 망설였는데ㅠ
+						바로 떠나고 싶은데 알아볼게 많아서 망설였는데
 						<br />
 						편행이 여행지도 추천해주고 코스도 짜주고,,
 						<br />
@@ -161,11 +161,11 @@ const Title3 = styled.p`
 `;
 const Review = styled.div`
 	width: 32.4rem;
-	height: 13.2rem;
+	height: 15.7rem;
 	border-radius: 1.7rem;
 	padding-left: 1.3rem;
-	padding-top: 1.4rem;
-	padding-bottom: 1.4rem;
+	padding-top: 1.3rem;
+	padding-bottom: 1.7rem;
 	//margin-left: 1rem;
 	box-shadow: 0 0.3rem 0.8rem 0 rgba(0, 0, 0, 0.15);
 	margin-bottom: 1.7rem;
@@ -179,6 +179,7 @@ const ReviewContents = styled.p`
 	color: #4f4f4f;
 	margin: 0;
 	text-align: center;
+	padding-bottom: 1rem;
 `;
 const Reviewer = styled.p`
 	width: 29.5rem;
@@ -227,7 +228,7 @@ const Button = styled.button`
 	border: none;
 	border-radius: 0.5rem;
 	width: 100%;
-	height: 4rem;
+	height: 5rem;
 	font-size: 1.8rem;
 	font-weight: bold;
 	color: white;

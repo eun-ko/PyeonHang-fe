@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Router from 'next/router';
+import axios from 'axios';
+import { Collapse } from 'antd';
+import Loading from '../src/components/Loading';
 import SwipeableViews from 'react-swipeable-views';
 
 export default function Result() {
+	const [isLoading, setLoading] = useState(true);
+	//받아오면 setLoading false해주기
+
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setLoading(false);
+		}, 2000);
+		return () => clearTimeout(timer);
+	}, []);
+
+	const [course, setCourse] = useState({
+		city: '',
+
+		roomPrice: 0,
+		roomName: '',
+	});
+
 	const styles = {
 		slide: {
 			padding: 15,
@@ -21,17 +41,20 @@ export default function Result() {
 			backgroundColor: '#6AC0FF',
 		},
 	};
+	const { Panel } = Collapse;
+
 	return (
 		<>
-			<Header>
-				<Title>누구와 떠날까요?</Title>
-				<Row>
-					<Single onClick={() => Router.push('/single')}>혼자</Single>
-					<Couple onClick={() => Router.push('/couple')}>연인</Couple>
-					<Friends onClick={() => Router.push('/friends')}>친구</Friends>
-				</Row>
-			</Header>
 			<Wrapper>
+				<Header>
+					<Title>누구와 떠날까요?</Title>
+					<Row>
+						<Single onClick={() => Router.push('/single')}>혼자</Single>
+						<Couple onClick={() => Router.push('/couple')}>연인</Couple>
+						<Friends onClick={() => Router.push('/friends')}>친구</Friends>
+					</Row>
+				</Header>
+
 				<Img src="/9-grid.png" />
 				<Destination>#통영_1박2일</Destination>
 				<Course>
@@ -46,7 +69,37 @@ export default function Result() {
 						<br />
 						여행 플랜 pdf 5,000원
 					</Desc>
-					<Warn>주의사항</Warn>
+					<Warn>
+						<Collapse
+							showArrow={false}
+							style={{ padding: 0, textAlign: 'right', margin: 0 }}
+							defaultActiveKey={['1']}
+							ghost
+						>
+							<Panel
+								showArrow={false}
+								style={{
+									textAlign: 'right',
+									padding: 0,
+									color: '#333333',
+									fontSize: '1.2rem',
+								}}
+								header="주의사항   ∨"
+								key="1"
+							>
+								<p
+									style={{
+										fontSize: '1rem',
+										color: '#828282',
+										textAlign: 'left',
+									}}
+								>
+									여행 상품의 가격은 같은 상품이라 할지라도 여행 날짜, <br />
+									여행자의 나이와 인원에 따라 달라질 수 있습니다.
+								</p>
+							</Panel>
+						</Collapse>
+					</Warn>
 				</Course>
 				<Gray></Gray>
 				<Info>
@@ -157,21 +210,20 @@ const Won = styled.img`
 const Warn = styled.div`
 	margin-top: 2.1rem;
 	margin-bottom: 2rem;
-	color: #333333;
+	margin: 0;
 	font-size: 1.2rem;
 	font-weight: normal;
 	text-algin: right;
-	margin-left: 9rem;
 `;
 const Course = styled.div`
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-end;
-	padding-left: 20rem;
+	padding-left: 7rem;
 	padding-right: 2rem;
 `;
 const R = styled.div`
 	display: flex;
+	text-align: right;
 	justify-content: flex-end;
 `;
 const FinalPrice = styled.div`
@@ -206,7 +258,7 @@ const Row = styled.div`
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
-	margin-bottom: 2rem;
+	margin-bottom: 3rem;
 	padding: 0 3rem;
 `;
 const Single = styled.button`
@@ -253,7 +305,8 @@ const Title = styled.p`
 	font-weight: bold;
 	color: black;
 	text-align: center;
-	margin-top: 2.3rem;
+	margin-top: 2rem;
+	margin-bottom: 1rem;
 `;
 const Button = styled.button`
 	border: none;
@@ -273,6 +326,7 @@ const Replay = styled.button`
 	font-size: 1.8rem;
 	font-weight: bold;
 	border-radius: 0.5rem;
+	margin-right: 2rem;
 	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
 	background-color: #e0e0e0;
 	color: white;
@@ -352,13 +406,12 @@ const Header = styled.div`
 	margin: 0;
 	background-color: #fff;
 	box-shadow: 0 0.3rem 0.6rem 0 rgba(0, 0, 0, 0.16);
-	//z-index: 10;
+	z-index: 10;
 `;
 const Wrapper = styled.div`
 	width: 100%;
 	height: fit-content;
 	margin: 0;
-	padding-top: 9.5rem;
 	margin-bottom: 10rem;
 `;
 
@@ -379,4 +432,5 @@ const Bottom = styled.div`
 const Img = styled.img`
 	width: 100%;
 	height: auto;
+	margin-top: 9.5rem;
 `;

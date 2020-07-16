@@ -3,9 +3,40 @@ import styled from 'styled-components';
 import Router from 'next/router';
 import Link from 'next/link';
 import axios from 'axios';
+import Loading from '../src/components/Loading';
 
 export default function Processing() {
-	const [progress, setProgress] = useState(60);
+	const [progress, setProgress] = useState(50);
+	const [count, setCount] = useState(0);
+	const [img, setImg] = useState(null);
+	const [isLoading, setLoading] = useState(false);
+
+
+	//	useEffect(() => {
+	//		const timer = setTimeout(() => {
+	//			setLoading(true);
+	//		}, 2000);
+	//		return () => clearTimeout(timer);
+	//	}, []);
+
+	const getImg = () => {
+		const imgArr = new Array();
+		imgArr[0] = '/여수 낭만포차.png';
+		imgArr[1] = '/수목원아담원.png';
+		imgArr[2] = '/내수전몽돌해변.png';
+		imgArr[3] = '/바다서프.png';
+		imgArr[4] = '/통영해물가.png';
+		setCount(count + 1);
+		setImg(imgArr[count]);
+		setProgress(progress + 10);
+
+		if (progress == 100) {
+			setLoading(true);
+			Router.push('/single')
+
+		};
+	}
+
 	//const [img, setImg] = useState(null);
 
 	//const handleProgressBar = () => {
@@ -42,21 +73,21 @@ export default function Processing() {
 	// useEffect(() => {
 	// 	getImg();
 	// }, []);
-	return (
-		<>
+	return (<>
+		{isLoading ? (<Loading />) : (<>
 			<ProgressBar num={progress} />
 			<Wrapper>
-				{/*<Img2 src={img}></Img2>*/}
+				<Img2 src={img}></Img2>
 				<Bottom>
-					<Button onClick={() => Router.push('/single')}>
+					<Button onClick={() => getImg()}>
 						<Img src="/x.png" />
 					</Button>
-					<Button onClick={() => Router.push('/single')}>
+					<Button onClick={() => getImg()}>
 						<Img src="/heart.png" />
 					</Button>
 				</Bottom>
-			</Wrapper>
-		</>
+			</Wrapper></>)}
+	</>
 	);
 }
 const ProgressBar = styled.div`
@@ -84,7 +115,7 @@ const Img2 = styled.img`
 const Wrapper = styled.div`
 	width: 100%;
 	margin-top: 0.5rem;
-	//height: fit-content;
+	height: fit-content;
 	min-height: 51.6rem;
 	display: flex;
 	flex-direction: column;

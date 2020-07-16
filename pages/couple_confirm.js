@@ -2,15 +2,21 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
 import axios from 'axios';
-import { DatePicker } from 'antd';
+import { DatePicker, AutoComplete } from 'antd';
 
 export default function Confirm() {
 	const [form, setForm] = useState({ name: '', phone: '', email: '' });
-
+	const [startDate, setStartDate] = useState('');
+	const handleDateChange = (value) => {
+		console.log(
+			`여행시작날짜: ${value ? value[0].format('MM월 DD일') : 'None'}`
+		);
+		setStartDate(value[0].format('MM월 DD일'));
+		console.log(` 전송 : ${startDate ? startDate : 'None'}`);
+	};
 	const handleFormChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
-
 	const handleSubmit = (form) => {
 		if (
 			form.name.length === 0 ||
@@ -21,6 +27,7 @@ export default function Confirm() {
 			return false;
 		} else {
 			setForm({ ...form });
+			console.log('입력완료');
 			//axios
 			//.post(process.env.local.API_HOST+"/reservation",form)
 			//.then((response) => {
@@ -33,14 +40,19 @@ export default function Confirm() {
 			Router.push('/check');
 		}
 	};
+
 	const { RangePicker } = DatePicker;
 	const pickerStyle = {
 		width: '100%',
 		height: '6rem',
 		border: 'solid 0.1rem #333333',
 		borderRadius: '0.5rem',
+		fontSize: '2rem',
+		color: 'black',
 	};
-
+	const popupStyle = {
+		width: 'auto',
+	};
 	return (
 		<Wrapper>
 			<R>
@@ -48,7 +60,25 @@ export default function Confirm() {
 				<Title>#통영_1박2일 #연인</Title>
 			</R>
 			<Label>여행 날짜</Label>
-			<RangePicker style={pickerStyle} />
+			<RangePicker
+				onChange={handleDateChange}
+				format="MM월 DD일"
+				separator="〉"
+				style={pickerStyle}
+				placeholder={['체크인', '체크아웃']}
+				popupStyle={popupStyle}
+			/>
+			<p
+				style={{
+					color: '#eb5757',
+					fontSize: '1rem',
+					fontWeight: 300,
+					marginTop: '0.9rem',
+				}}
+			>
+				꼭 1박2일 일정으로 신청해주세요!
+			</p>
+
 			<Form>
 				<Label>여행자 이름</Label>
 				<Input
@@ -150,10 +180,10 @@ const Input = styled.input`
 `;
 const Form = styled.form`
 	width: 100%;
+	margin-bottom: 2rem;
 	display: flex;
 	flex-direction: column;
-	margin-top: 2.6rem;
-	margin-bottom: 2rem;
+	margin-top: 1.3rem;
 `;
 
 const Label = styled.div`
