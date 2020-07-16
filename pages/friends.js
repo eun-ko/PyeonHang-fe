@@ -399,6 +399,7 @@ const Destination = styled.div`
 const Header = styled.div`
 	position: fixed;
 	width: 100%;
+	max-width: 37.5rem;
 	height: 9.5rem;
 	display: flex;
 	flex-direction: column;
@@ -422,6 +423,7 @@ const Bottom = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
+	max-width: 37.5rem;
 	height: 7rem;
 	position: fixed;
 	bottom: 0rem;

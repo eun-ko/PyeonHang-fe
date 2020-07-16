@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
-import Link from 'next/link';
-import axios from 'axios';
+
 import Loading from '../src/components/Loading';
 
 export default function Processing() {
@@ -10,14 +9,6 @@ export default function Processing() {
 	const [count, setCount] = useState(0);
 	const [img, setImg] = useState(null);
 	const [isLoading, setLoading] = useState(false);
-
-
-	//	useEffect(() => {
-	//		const timer = setTimeout(() => {
-	//			setLoading(true);
-	//		}, 2000);
-	//		return () => clearTimeout(timer);
-	//	}, []);
 
 	const getImg = () => {
 		const imgArr = new Array();
@@ -32,66 +23,42 @@ export default function Processing() {
 
 		if (progress == 100) {
 			setLoading(true);
-			Router.push('/single')
+			Router.push('/single');
+		}
+	};
 
-		};
-	}
+	return (
+		<>
+			{isLoading ? (
+				<Loading />
+			) : (
+				<>
+					<ProgressBarWrapper>
+						<ProgressBar num={progress} />
+					</ProgressBarWrapper>
 
-	//const [img, setImg] = useState(null);
-
-	//const handleProgressBar = () => {
-	//	setProgress(progress + 10);
-	//};
-	//const getImg = async () => {
-	//	const img = await axios
-	//		.get(process.env.local.API_HOST + '/sample-data')
-	//		.then((res) => {
-	//			console.log(res);
-	//			handleProgressBar();
-	//			return res.data.sample_img;
-	//		})
-	//		.catch((err) => console.log(err));
-	//	setImg(img);
-	//};
-
-	// const getImg = async() = {
-	// await axios
-	// 	.get('https://yts-proxy.now.sh/list_movies.json?sort_by=rating')
-	// 	.then(
-	// 		({
-	// 			data: {
-	// 				data: { movies },
-	// 			},
-	// 		}) => {
-	// 			//console.log(movies);
-	// 			setRating(rating+i);
-	// 			// setMovies(movies);하면 왜 안되는지
-	// 			setLoading(false);
-	// 		}
-	// 	);
-	// };
-	// useEffect(() => {
-	// 	getImg();
-	// }, []);
-	return (<>
-		{isLoading ? (<Loading />) : (<>
-			<ProgressBar num={progress} />
-			<Wrapper>
-				<Img2 src={img}></Img2>
-				<Bottom>
-					<Button onClick={() => getImg()}>
-						<Img src="/x.png" />
-					</Button>
-					<Button onClick={() => getImg()}>
-						<Img src="/heart.png" />
-					</Button>
-				</Bottom>
-			</Wrapper></>)}
-	</>
+					<Wrapper>
+						<Img2 src={img}></Img2>
+						<Bottom>
+							<Button onClick={() => getImg()}>
+								<Img src="/x.png" />
+							</Button>
+							<Button onClick={() => getImg()}>
+								<Img src="/heart.png" />
+							</Button>
+						</Bottom>
+					</Wrapper>
+				</>
+			)}
+		</>
 	);
 }
-const ProgressBar = styled.div`
+const ProgressBarWrapper = styled.div`
 	position: fixed;
+	width: 100%;
+	max-width: 37.5rem;
+`;
+const ProgressBar = styled.div`
 	width: ${(props) => (props.num ? props.num : 0)}%;
 	height: 0.5rem;
 	background-color: #007aff;
@@ -124,10 +91,9 @@ const Bottom = styled.div`
 	display: flex;
 	padding: 5rem;
 	align-items: center;
-	width: 100%;
+	width: 37.5rem;
 	height: 12rem;
 	position: fixed;
 	bottom: 0rem;
 	background-color: white;
-	//왜 밖으로 나가지..?
 `;

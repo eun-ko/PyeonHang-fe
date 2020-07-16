@@ -399,6 +399,7 @@ const Destination = styled.div`
 const Header = styled.div`
 	position: fixed;
 	width: 100%;
+	max-width: 37.5rem;
 	height: 9.5rem;
 	display: flex;
 	flex-direction: column;
@@ -424,6 +425,7 @@ const Bottom = styled.div`
 	width: 100%;
 	height: 7rem;
 	position: fixed;
+	max-width: 37.5rem;
 	bottom: 0rem;
 	border-radius: 1rem 1rem 0 0;
 	background-color: white;
