@@ -23,7 +23,9 @@ export default function Processing() {
 
 		if (progress == 100) {
 			setLoading(true);
-			Router.push('/single');
+			setTimeout(function () {
+				Router.push('/single');
+			}, 2000);
 		}
 	};
 
@@ -57,6 +59,7 @@ const ProgressBarWrapper = styled.div`
 	position: fixed;
 	width: 100%;
 	max-width: 37.5rem;
+	background-color: white;
 `;
 const ProgressBar = styled.div`
 	width: ${(props) => (props.num ? props.num : 0)}%;

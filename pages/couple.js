@@ -4,42 +4,41 @@ import Link from 'next/link';
 import Router from 'next/router';
 import axios from 'axios';
 import { Collapse } from 'antd';
-import Loading from '../src/components/Loading';
 import SwipeableViews from 'react-swipeable-views';
+import { autoPlay } from 'react-swipeable-views-utils';
+import Pagination from '@src/components/organisms/Pagination.js';
 
 export default function Result() {
-	const [isLoading, setLoading] = useState(true);
-	//받아오면 setLoading false해주기
-
-	useEffect(() => {
-		const timer = setTimeout(() => {
-			setLoading(false);
-		}, 2000);
-		return () => clearTimeout(timer);
-	}, []);
-
 	const [course, setCourse] = useState({
 		city: '',
 
 		roomPrice: 0,
 		roomName: '',
 	});
-
+	const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 	const styles = {
+		root: {
+			position: 'relative',
+		},
 		slide: {
-			padding: 15,
-			//minHeight: 375,
+			height: '31.5rem',
 			color: '#fff',
+			padding: 0,
 		},
 		slide1: {
-			backgroundColor: '#FEA900',
+			backgroundColor: '#ff9500',
 		},
 		slide2: {
-			backgroundColor: '#B3DC4A',
+			backgroundColor: 'white',
 		},
 		slide3: {
-			backgroundColor: '#6AC0FF',
+			backgroundColor: '#ff9500',
 		},
+	};
+
+	const [index, setIndex] = useState(0);
+	const handleChangeIndex = (index) => {
+		setIndex(index);
 	};
 	const { Panel } = Collapse;
 
@@ -108,14 +107,29 @@ export default function Result() {
 					<Exp>
 						시설, 조식, 위치, 서비스 어느것 하나 빠지지 않는 가성비 호텔
 					</Exp>
-					<CImg></CImg>
-					{/*<SwipeableViews enableMouseEvents>
-						<div style={Object.assign({}, styles.slide, styles.slide1)}>1</div>
-						<div style={Object.assign({}, styles.slide, styles.slide2)}></div>
-						<div style={Object.assign({}, styles.slide, styles.slide3)}>
-							<CImg src="/white.png"></CImg>
-						</div>
-					</SwipeableViews>*/}
+					<Swipe style={styles.root}>
+						<SwipeableViews
+							index={index}
+							onChangeIndex={handleChangeIndex}
+							enableMouseEvents
+						>
+							<div style={Object.assign({}, styles.slide, styles.slide1)}>
+								<Room src="/9-grid.png" />
+							</div>
+							<div style={Object.assign({}, styles.slide, styles.slide2)}>
+								slide n°2
+							</div>
+							<div style={Object.assign({}, styles.slide, styles.slide3)}>
+								slide n°3
+							</div>
+						</SwipeableViews>
+
+						<Pagination
+							dots={3}
+							index={index}
+							onChangeIndex={handleChangeIndex}
+						/>
+					</Swipe>
 					<Hashtag>#바다앞카페 #한식조식무료 #카약무료</Hashtag>
 				</Info>
 				<Info>
@@ -193,7 +207,7 @@ export default function Result() {
 					<Link href="/warning">
 						<Replay>다시 하기</Replay>
 					</Link>
-					<Link href="/couple_confirm">
+					<Link href="/single_confirm">
 						<Button>코스 결정</Button>
 					</Link>
 				</Bottom>
@@ -325,8 +339,8 @@ const Replay = styled.button`
 	height: 4rem;
 	font-size: 1.8rem;
 	font-weight: bold;
-	margin-right: 2rem;
 	border-radius: 0.5rem;
+	margin-right: 2rem;
 	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);
 	background-color: #e0e0e0;
 	color: white;
@@ -347,6 +361,12 @@ const CImg = styled.div`
 	width: 31.5rem;
 	height: 31.5rem;
 	background-color: white;
+`;
+const Swipe = styled.div`
+	width: 31.5rem;
+	height: 31.5rem;
+	background-color: white;
+	margin-bottom: 1rem;
 `;
 const Name = styled.p`
 	font-size: 2.4rem;
@@ -423,9 +443,9 @@ const Bottom = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	width: 100%;
-	max-width: 37.5rem;
 	height: 7rem;
 	position: fixed;
+	max-width: 37.5rem;
 	bottom: 0rem;
 	border-radius: 1rem 1rem 0 0;
 	background-color: white;
@@ -435,4 +455,8 @@ const Img = styled.img`
 	width: 100%;
 	height: auto;
 	margin-top: 9.5rem;
+`;
+const Room = styled.img`
+	width: 100%;
+	height: auto;
 `;

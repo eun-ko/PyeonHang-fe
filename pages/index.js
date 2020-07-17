@@ -156,7 +156,7 @@ const Title3 = styled.p`
 	font-weight: bold;
 	color: #333333;
 	text-align: center;
-	margin-top: 10.8rem;
+	margin-top: 8.8rem;
 	margin-bottom: 3.5rem;
 `;
 const Review = styled.div`
