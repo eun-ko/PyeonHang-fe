@@ -5,23 +5,69 @@ import Router from 'next/router';
 import axios from 'axios';
 import { Collapse } from 'antd';
 import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import Pagination from '@src/components/organisms/Pagination.js';
 
 export default function Result() {
 	const [course, setCourse] = useState({
-		city: '',
-
-		roomPrice: 0,
-		roomName: '',
+		city: '통영',
+		result_img: '',
+		room_name: '슬로비게스트하우스',
+		room_detail: '시설, 조식, 위치, 서비스 어느것 하나 빠지지 않는 가성비 호텔',
+		room_hash: '#바다앞카페 #한식조식무료 #카약무료',
+		room_img1: '',
+		room_img2: '',
+		room_img3: '',
+		meal_name1: '',
+		meal_name2: '',
+		meal_name3: '',
+		meal_name4: '',
+		meal_name5: '',
+		meal_name6: '',
+		meal_hash1: '',
+		meal_hash2: '',
+		meal_hash3: '',
+		meal_hash4: '',
+		meal_hash5: '',
+		meal_hash6: '',
+		meal_detail1: '',
+		meal_detail2: '',
+		meal_detail3: '',
+		meal_detail4: '',
+		meal_detail5: '',
+		meal_detail6: '',
+		meal_hash1: '',
+		meal_hash2: '',
+		meal_hash3: '',
+		meal_hash4: '',
+		meal_hash5: '',
+		meal_hash6: '',
+		meal_img1: '',
+		meal_img2: '',
+		meal_img3: '',
+		meal_img4: '',
+		meal_img5: '',
+		meal_img6: '',
+		act_name1: '',
+		act_name2: '',
+		act_name3: '',
+		act_detail1: '',
+		act_detail2: '',
+		act_detail3: '',
+		act_img1: '',
+		act_img2: '',
+		act_img3: '',
+		act_hash1: '',
+		act_hash2: '',
+		act_hash3: '',
 	});
-	const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
+
+	const [payment, setPayment] = useState({ room_price: 0, activity_price: 0 });
 	const styles = {
 		root: {
 			position: 'relative',
 		},
 		slide: {
-			height: '31.5rem',
+			height: 'auto',
 			color: '#fff',
 			padding: 0,
 		},
@@ -32,10 +78,19 @@ export default function Result() {
 			backgroundColor: 'white',
 		},
 		slide3: {
-			backgroundColor: '#ff9500',
+			backgroundColor: 'white',
 		},
 	};
-
+	//const getCourse=async()=>{
+	//	const data=awat axios
+	//	.get(process.env.local.API_HOST+'/course')
+	//	.then((res)=>{
+	//		console.log(res);
+	//		return res.data;
+	//	})
+	//	.catch((err)=>console.log(err));
+	//	course.city=data.city;
+	//}
 	const [index, setIndex] = useState(0);
 	const handleChangeIndex = (index) => {
 		setIndex(index);
@@ -55,35 +110,34 @@ export default function Result() {
 				</Header>
 
 				<Img src="/9-grid.png" />
-				<Destination>#통영_1박2일</Destination>
+				<Destination>#{course.city}_1박2일</Destination>
 				<Course>
 					<R>
 						<FinalPrice>55,000원</FinalPrice>
 						<Badge>최저가</Badge>
 					</R>
 					<Desc>
-						슬로비게스트하우스 20,000원
+						{course.room_name} {payment.room_price}원
 						<br />
-						스카이라인루지 통영 30,000원
+						스카이라인루지 통영 {payment.activity_price}원
 						<br />
 						여행 플랜 pdf 5,000원
 					</Desc>
 					<Warn>
 						<Collapse
-							showArrow={false}
 							style={{ padding: 0, textAlign: 'right', margin: 0 }}
 							defaultActiveKey={['1']}
+							expandIconPosition="right"
 							ghost
 						>
 							<Panel
-								showArrow={false}
 								style={{
 									textAlign: 'right',
 									padding: 0,
 									color: '#333333',
 									fontSize: '1.2rem',
 								}}
-								header="주의사항   ∨"
+								header="주의사항"
 								key="1"
 							>
 								<p
@@ -103,10 +157,8 @@ export default function Result() {
 				<Gray></Gray>
 				<Info>
 					<Reserv>예약 숙소</Reserv>
-					<Name>슬로비게스트하우스</Name>
-					<Exp>
-						시설, 조식, 위치, 서비스 어느것 하나 빠지지 않는 가성비 호텔
-					</Exp>
+					<Name>{course.room_name}</Name>
+					<Exp>{course.room_detail}</Exp>
 					<Swipe style={styles.root}>
 						<SwipeableViews
 							index={index}
@@ -123,21 +175,13 @@ export default function Result() {
 								slide n°3
 							</div>
 						</SwipeableViews>
-
 						<Pagination
 							dots={3}
 							index={index}
 							onChangeIndex={handleChangeIndex}
 						/>
 					</Swipe>
-					{/*<SwipeableViews enableMouseEvents>
-						<div style={Object.assign({}, styles.slide, styles.slide1)}>1</div>
-						<div style={Object.assign({}, styles.slide, styles.slide2)}></div>
-						<div style={Object.assign({}, styles.slide, styles.slide3)}>
-							<CImg src="/white.png"></CImg>
-						</div>
-					</SwipeableViews>*/}
-					<Hashtag>#바다앞카페 #한식조식무료 #카약무료</Hashtag>
+					<Hashtag>{course.room_hash}</Hashtag>
 				</Info>
 				<Info>
 					<Reserv>예약 액티비티</Reserv>
@@ -370,7 +414,7 @@ const CImg = styled.div`
 	background-color: white;
 `;
 const Swipe = styled.div`
-	width: 31.5rem;
+	width: 100%;
 	height: 31.5rem;
 	background-color: white;
 	margin-bottom: 1rem;

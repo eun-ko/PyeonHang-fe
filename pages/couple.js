@@ -5,7 +5,6 @@ import Router from 'next/router';
 import axios from 'axios';
 import { Collapse } from 'antd';
 import SwipeableViews from 'react-swipeable-views';
-import { autoPlay } from 'react-swipeable-views-utils';
 import Pagination from '@src/components/organisms/Pagination.js';
 
 export default function Result() {
@@ -15,13 +14,12 @@ export default function Result() {
 		roomPrice: 0,
 		roomName: '',
 	});
-	const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 	const styles = {
 		root: {
 			position: 'relative',
 		},
 		slide: {
-			height: '31.5rem',
+			height: 'auto',
 			color: '#fff',
 			padding: 0,
 		},
@@ -70,20 +68,19 @@ export default function Result() {
 					</Desc>
 					<Warn>
 						<Collapse
-							showArrow={false}
+							expandIconPosition="right"
 							style={{ padding: 0, textAlign: 'right', margin: 0 }}
 							defaultActiveKey={['1']}
 							ghost
 						>
 							<Panel
-								showArrow={false}
 								style={{
 									textAlign: 'right',
 									padding: 0,
 									color: '#333333',
 									fontSize: '1.2rem',
 								}}
-								header="주의사항   ∨"
+								header="주의사항"
 								key="1"
 							>
 								<p
@@ -358,12 +355,12 @@ const Hashtag = styled.div`
 	margin-bottom: 5rem;
 `;
 const CImg = styled.div`
-	width: 31.5rem;
+	width: 100%;
 	height: 31.5rem;
 	background-color: white;
 `;
 const Swipe = styled.div`
-	width: 31.5rem;
+	width: 100%;
 	height: 31.5rem;
 	background-color: white;
 	margin-bottom: 1rem;

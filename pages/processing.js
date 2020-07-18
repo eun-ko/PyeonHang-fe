@@ -1,26 +1,48 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
-
 import Loading from '../src/components/Loading';
 
 export default function Processing() {
 	const [progress, setProgress] = useState(50);
 	const [count, setCount] = useState(0);
+	const [index, setIndex] = useState([]);
 	const [img, setImg] = useState(null);
 	const [isLoading, setLoading] = useState(false);
 
+	useEffect(() => {
+		let temp, rnum;
+		for (let i = 0; i < 5; i++) index.push(i);
+		for (let i = 0; i < index.length; i++) {
+			rnum = Math.floor(Math.random() * 5); //난수발생
+			temp = index[i];
+			index[i] = index[rnum];
+			index[rnum] = temp;
+		}
+		setIndex(index);
+	}, []);
+
 	const getImg = () => {
-		const imgArr = new Array();
+		console.log(index);
+		const imgArr = [];
 		imgArr[0] = '/여수 낭만포차.png';
 		imgArr[1] = '/수목원아담원.png';
 		imgArr[2] = '/내수전몽돌해변.png';
 		imgArr[3] = '/바다서프.png';
 		imgArr[4] = '/통영해물가.png';
-		setCount(count + 1);
-		setImg(imgArr[count]);
+		//	imgArr = await axios
+		//		.get(process.env.local.API_HOST + '/sample-data')
+		//		.then((res) => {
+		//			console.log(res);
+		//			return res.data.sample_img;
+		//		})
+		//		.catch((err) => console.log(err));
+		//	setImg(img);
+		setImg(imgArr[index[count]]);
+		console.log('set image');
+		console.log(index[count]);
 		setProgress(progress + 10);
-
+		setCount(count + 1);
 		if (progress == 100) {
 			setLoading(true);
 			setTimeout(function () {

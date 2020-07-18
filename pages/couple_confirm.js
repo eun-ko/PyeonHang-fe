@@ -2,32 +2,38 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
 import axios from 'axios';
-import { DatePicker, AutoComplete } from 'antd';
+import { DatePicker } from 'antd';
 
 export default function Confirm() {
-	const [form, setForm] = useState({ name: '', phone: '', email: '' });
-	const [startDate, setStartDate] = useState('');
+	const [form, setForm] = useState({
+		username: '',
+		phone: '',
+		email: '',
+		date: '',
+		res_course: '연인',
+	});
 	const handleDateChange = (value) => {
 		console.log(
 			`여행시작날짜: ${value ? value[0].format('MM월 DD일') : 'None'}`
 		);
-		setStartDate(value[0].format('MM월 DD일'));
-		console.log(` 전송 : ${startDate ? startDate : 'None'}`);
+		form.date = value[0].format('MM월 DD일');
+		console.log(` 전송 : ${form.date}`);
 	};
 	const handleFormChange = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	};
-	const handleSubmit = (form) => {
-		if (
-			form.name.length === 0 ||
-			form.phone.length === 0 ||
-			form.email.length === 0
-		) {
+	const handleSubmit = () => {
+		const { username, phone, email, res_course, date } = form;
+		if (username.length === 0 || phone.length === 0 || email.length === 0) {
 			alert('모든 항목을 입력해주세요!');
 			return false;
 		} else {
-			setForm({ ...form });
-			console.log('입력완료');
+			console.log(res_course);
+			console.log(date);
+			console.log(username);
+			console.log(email);
+			console.log(phone);
+
 			//axios
 			//.post(process.env.local.API_HOST+"/reservation",form)
 			//.then((response) => {
