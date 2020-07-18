@@ -7,16 +7,17 @@ import { DatePicker } from 'antd';
 export default function Confirm() {
 	const [form, setForm] = useState({
 		username: '',
-		phone: '',
+		phone: 0,
 		email: '',
 		date: '',
-		res_course: '친구',
+		res_course: 1,
+		pay: 9,
 	});
 	const handleDateChange = (value) => {
 		console.log(
-			`여행시작날짜: ${value ? value[0].format('MM월 DD일') : 'None'}`
+			`여행시작날짜: ${value ? value[0].format('YYYY-MM-DD') : 'None'}`
 		);
-		form.date = value[0].format('MM월 DD일');
+		form.date = value[0].format('YYYY-MM-DD');
 		console.log(` 전송 : ${form.date}`);
 	};
 	const handleFormChange = (e) => {
@@ -28,21 +29,15 @@ export default function Confirm() {
 			alert('모든 항목을 입력해주세요!');
 			return false;
 		} else {
-			console.log(res_course);
-			console.log(date);
-			console.log(username);
-			console.log(email);
-			console.log(phone);
-
-			//axios
-			//.post(process.env.local.API_HOST+"/reservation",form)
-			//.then((response) => {
-			//	console.log(response);
-			//	console.log(form.name);
-			//	console.log(form.email);
-			//	console.log(form.phone);
-			//})
-			//.catch((err)=>console.log(err));
+			axios
+				.post(
+					'http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/reservation/',
+					form
+				)
+				.then((response) => {
+					console.log(response);
+				})
+				.catch((err) => console.log(err));
 			Router.push('/check');
 		}
 	};
@@ -89,21 +84,21 @@ export default function Confirm() {
 				<Label>여행자 이름</Label>
 				<Input
 					onChange={handleFormChange}
-					placeholder="예약을 위해 필요한 정보입니다."
+					placeholder="홍길동"
 					type="text"
 					name="name"
 				/>
 
 				<Label>전화번호</Label>
 				<Input
-					placeholder="예약을 위해 필요한 정보입니다."
+					placeholder="01012345678"
 					name="phone"
 					onChange={handleFormChange}
 				/>
 
 				<Label>이메일</Label>
 				<Input
-					placeholder="PDF 전송을 위해 필요한 정보입니다."
+					placeholder="pyeonhang@gmail.com"
 					type="email"
 					name="email"
 					onChange={handleFormChange}
