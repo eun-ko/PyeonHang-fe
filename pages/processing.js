@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
+import axios from 'axios';
 import Loading from '../src/components/Loading';
 
 export default function Processing() {
 	const [progress, setProgress] = useState(50);
 	const [count, setCount] = useState(0);
 	const [index, setIndex] = useState([]);
-	const [img, setImg] = useState(null);
+	const [img, setImg] = useState('/여수 낭만포차.png');
 	const [isLoading, setLoading] = useState(false);
 
 	useEffect(() => {
 		let temp, rnum;
-		for (let i = 0; i < 5; i++) index.push(i);
+		for (let i = 0; i < 10; i++) index.push(i);
 		for (let i = 0; i < index.length; i++) {
-			rnum = Math.floor(Math.random() * 5); //난수발생
+			rnum = Math.floor(Math.random() * 10);
 			temp = index[i];
 			index[i] = index[rnum];
 			index[rnum] = temp;
@@ -22,27 +23,22 @@ export default function Processing() {
 		setIndex(index);
 	}, []);
 
-	const getImg = () => {
+	const getImg = async () => {
 		console.log(index);
-		const imgArr = [];
-		imgArr[0] = '/여수 낭만포차.png';
-		imgArr[1] = '/수목원아담원.png';
-		imgArr[2] = '/내수전몽돌해변.png';
-		imgArr[3] = '/바다서프.png';
-		imgArr[4] = '/통영해물가.png';
-		//	imgArr = await axios
-		//		.get(process.env.local.API_HOST + '/sample-data')
-		//		.then((res) => {
-		//			console.log(res);
-		//			return res.data.sample_img;
-		//		})
-		//		.catch((err) => console.log(err));
-		//	setImg(img);
-		setImg(imgArr[index[count]]);
-		console.log('set image');
-		console.log(index[count]);
+		await axios
+			.get(
+				'http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/sample-data/'
+			)
+			.then((res) => {
+				console.log(res.data[index[count]].sample_img);
+				setImg(res.data[index[count]].sample_img);
+				console.log(index[count]);
+				setCount(count + 1);
+			})
+			.catch((err) => console.log(err));
+
 		setProgress(progress + 10);
-		setCount(count + 1);
+
 		if (progress == 100) {
 			setLoading(true);
 			setTimeout(function () {
