@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import axios from 'axios';
 import { Collapse } from 'antd';
 import SwipeableViews from 'react-swipeable-views';
@@ -63,11 +63,13 @@ export default function Result() {
 	const [act_price1, setActPrice1] = useState();
 	const [act_price2, setActPrice2] = useState();
 	const [act_price3, setActPrice3] = useState();
-
+	const router = useRouter();
 	useEffect(() => {
 		getCourse();
+		console.log('아아', router.query.id);
 	}, []);
 
+	const [payment, setPayment] = useState({ room_price: 0, activity_price: 0 });
 	const styles = {
 		root: {
 			position: 'relative',
@@ -88,7 +90,7 @@ export default function Result() {
 		},
 	};
 	const getCourse = async () => {
-		let id = 1;
+		let id = 2;
 		await axios
 			.get(
 				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${id}/`
@@ -157,7 +159,7 @@ export default function Result() {
 		setIndex(index);
 	};
 	const { Panel } = Collapse;
-	const id = 2;
+
 	return (
 		<>
 			<Wrapper>
@@ -168,8 +170,7 @@ export default function Result() {
 						<Couple
 							onClick={() =>
 								Router.push({
-									pathname: `/couple/${id}`,
-									query: { id: 2 },
+									pathname: '/couple',
 								})
 							}
 						>
@@ -179,7 +180,6 @@ export default function Result() {
 							onClick={() =>
 								Router.push({
 									pathname: '/friends',
-									query: { id: 3 },
 								})
 							}
 						>
@@ -466,11 +466,10 @@ const Single = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
-	border-bottom: 0.15rem solid #007aff;
 	font-size: 1.4rem;
 	font-weight: bold;
 	background-color: white;
-	color: #007aff;
+	color: #bdbdbd;
 	margin-right: 2rem;
 	:focus {
 		outline: 0;
@@ -480,14 +479,15 @@ const Couple = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
-	:focus {
-		outline: 0;
-	}
+	border-bottom: 0.15rem solid #007aff;
 	font-size: 1.4rem;
 	font-weight: bold;
 	background-color: white;
-	color: #bdbdbd;
+	color: #007aff;
 	margin-right: 2rem;
+	:focus {
+		outline: 0;
+	}
 `;
 const Friends = styled.button`
 	width: 10rem;
@@ -544,10 +544,9 @@ const Hashtag = styled.div`
 	color: #828282;
 	margin-bottom: 5rem;
 `;
-const CImg = styled.img`
+const CImg = styled.div`
 	width: 100%;
-	height: auto;
-	margin-bottom: 1rem;
+	height: 31.5rem;
 	background-color: white;
 `;
 const Swipe = styled.div`
