@@ -5,10 +5,10 @@ import axios from 'axios';
 import Loading from '../src/components/Loading';
 
 export default function Processing() {
-	const [progress, setProgress] = useState(50);
+	const [progress, setProgress] = useState(0);
 	const [count, setCount] = useState(0);
 	const [index, setIndex] = useState([]);
-	const [img, setImg] = useState('/여수 낭만포차.png');
+	const [img, setImg] = useState();
 	const [isLoading, setLoading] = useState(false);
 
 	useEffect(() => {
@@ -21,6 +21,16 @@ export default function Processing() {
 			index[rnum] = temp;
 		}
 		setIndex(index);
+		axios
+			.get(
+				'http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/sample-data/'
+			)
+			.then((res) => {
+				setImg(res.data[index[count]].sample_img);
+				console.log(index[count]);
+				setCount(count + 1);
+			})
+			.catch((err) => console.log(err));
 	}, []);
 
 	const getImg = async () => {
@@ -31,9 +41,9 @@ export default function Processing() {
 			)
 			.then((res) => {
 				console.log(res.data[index[count]].sample_img);
+				setCount(count + 1);
 				setImg(res.data[index[count]].sample_img);
 				console.log(index[count]);
-				setCount(count + 1);
 			})
 			.catch((err) => console.log(err));
 
