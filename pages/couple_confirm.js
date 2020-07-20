@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import axios from 'axios';
 import { DatePicker } from 'antd';
 
@@ -41,7 +41,7 @@ export default function Confirm() {
 			Router.push('/check');
 		}
 	};
-
+	const router = useRouter();
 	const { RangePicker } = DatePicker;
 	const pickerStyle = {
 		width: '100%',
@@ -58,7 +58,7 @@ export default function Confirm() {
 		<Wrapper>
 			<R>
 				<Back onClick={() => Router.back()}>〈 </Back>
-				<Title>#통영_1박2일 #연인</Title>
+				<Title>#{router.query.city}_1박2일 #연인</Title>
 			</R>
 			<Label>여행 날짜</Label>
 			<RangePicker
