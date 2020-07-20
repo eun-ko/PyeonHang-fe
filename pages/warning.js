@@ -2,8 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 
-//import Button from 'react-bootstrap/Button';
-
 export default function Warn() {
 	return (
 		<Wrapper>

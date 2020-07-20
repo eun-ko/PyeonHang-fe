@@ -8,13 +8,12 @@ import SwipeableViews from 'react-swipeable-views';
 import Pagination from '@src/components/organisms/Pagination.js';
 
 export default function FResult() {
-	const [partner, setPartner] = useState();
-	const [city, setCity] = useState('');
+	const [city, setCity] = useState();
 	const [result_img, setResultImg] = useState();
 	const [room_price, setRoomPrice] = useState();
-	const [room_name, setRoomName] = useState('');
-	const [room_detail, setRoomDetail] = useState('');
-	const [room_hash, setRoomHash] = useState('');
+	const [room_name, setRoomName] = useState();
+	const [room_detail, setRoomDetail] = useState();
+	const [room_hash, setRoomHash] = useState();
 	const [room_img1, setRoomImg1] = useState();
 	const [room_img2, setRoomImg2] = useState();
 	const [room_img3, setRoomImg3] = useState();
@@ -64,18 +63,19 @@ export default function FResult() {
 	const [act_price2, setActPrice2] = useState();
 	const [act_price3, setActPrice3] = useState();
 	const [sum, setSum] = useState();
+
 	const router = useRouter();
 	let fID, sID, cID;
+
 	useEffect(() => {
 		console.log('friends.js', router.query.id);
-		fID = router.query.id;
-		sID = router.query.id - 2;
-		cID = router.query.id - 1;
-		console.log(sID, cID);
+		fID = Number(router.query.id);
+		sID = Number(router.query.id) - 2;
+		cID = Number(router.query.id) - 1;
+		console.log(sID, cID, fID);
 		getCourse();
 	}, []);
 
-	const [payment, setPayment] = useState({ room_price: 0, activity_price: 0 });
 	const styles = {
 		root: {
 			position: 'relative',
@@ -226,7 +226,7 @@ export default function FResult() {
 								<br />
 							</>
 						)}
-						여행 플랜 pdf 5,000원
+						{sum - room_price - act_price1 - act_price2 - act_price3}원
 					</Desc>
 					<Warn>
 						<Collapse
@@ -404,9 +404,17 @@ export default function FResult() {
 					<Link href="/warning">
 						<Replay>다시 하기</Replay>
 					</Link>
-					<Link href="/single_confirm">
-						<Button>코스 결정</Button>
-					</Link>
+
+					<Button
+						onClick={() =>
+							Router.push({
+								pathname: '/friends_confirm',
+								query: { city: city },
+							})
+						}
+					>
+						코스 결정
+					</Button>
 				</Bottom>
 			</Wrapper>
 		</>

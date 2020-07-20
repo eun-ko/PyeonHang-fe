@@ -8,13 +8,12 @@ import SwipeableViews from 'react-swipeable-views';
 import Pagination from '@src/components/organisms/Pagination.js';
 
 export default function SResult() {
-	const [partner, setPartner] = useState();
-	const [city, setCity] = useState('');
+	const [city, setCity] = useState();
 	const [result_img, setResultImg] = useState();
 	const [room_price, setRoomPrice] = useState();
-	const [room_name, setRoomName] = useState('');
-	const [room_detail, setRoomDetail] = useState('');
-	const [room_hash, setRoomHash] = useState('');
+	const [room_name, setRoomName] = useState();
+	const [room_detail, setRoomDetail] = useState();
+	const [room_hash, setRoomHash] = useState();
 	const [room_img1, setRoomImg1] = useState();
 	const [room_img2, setRoomImg2] = useState();
 	const [room_img3, setRoomImg3] = useState();
@@ -64,10 +63,17 @@ export default function SResult() {
 	const [act_price2, setActPrice2] = useState();
 	const [act_price3, setActPrice3] = useState();
 	const [sum, setSum] = useState();
+
+
 	const router = useRouter();
 	let sID, cID, fID;
+
 	useEffect(() => {
-		if (router.query.id) sID = router.query.id;
+		if (router.query.id) {
+			sID = Number(router.query.id);
+			cID = Number(router.query.id) + 1;
+			fID = Number(router.query.id) + 2;
+		}
 		else {
 			const rnum = Math.floor(Math.random() * 18 + 1);
 			if (rnum % 3 == 0) {
@@ -237,7 +243,7 @@ export default function SResult() {
 								<br />
 							</>
 						)}
-						여행 플랜 pdf 5,000원
+						{sum - room_price - act_price1 - act_price2 - act_price3}원
 					</Desc>
 					<Warn>
 						<Collapse
@@ -261,6 +267,7 @@ export default function SResult() {
 										fontSize: '1rem',
 										color: '#828282',
 										textAlign: 'left',
+										padding: 0,
 									}}
 								>
 									여행 상품의 가격은 같은 상품이라 할지라도 여행 날짜, <br />
@@ -415,9 +422,17 @@ export default function SResult() {
 					<Link href="/warning">
 						<Replay>다시 하기</Replay>
 					</Link>
-					<Link href="/single_confirm">
-						<Button>코스 결정</Button>
-					</Link>
+
+					<Button
+						onClick={() =>
+							Router.push({
+								pathname: '/single_confirm',
+								query: { city: city },
+							})
+						}
+					>
+						코스 결정
+					</Button>
 				</Bottom>
 			</Wrapper>
 		</>
