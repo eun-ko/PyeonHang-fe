@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import axios from 'axios';
 import { Collapse } from 'antd';
 import SwipeableViews from 'react-swipeable-views';
 import Pagination from '@src/components/organisms/Pagination.js';
 
-export default function Result() {
+export default function CResult() {
 	const [partner, setPartner] = useState();
 	const [city, setCity] = useState('');
 	const [result_img, setResultImg] = useState();
@@ -63,12 +63,17 @@ export default function Result() {
 	const [act_price1, setActPrice1] = useState();
 	const [act_price2, setActPrice2] = useState();
 	const [act_price3, setActPrice3] = useState();
-
+	const [sum, setSum] = useState();
+	const router = useRouter();
+	let cID, sID, fID;
 	useEffect(() => {
+		console.log('couple.js', router.query.id);
+		cID = router.query.id;
+		sID = router.query.id - 1;
+		fID = router.query.id + 1;
 		getCourse();
 	}, []);
 
-	const [payment, setPayment] = useState({ room_price: 0, activity_price: 0 });
 	const styles = {
 		root: {
 			position: 'relative',
@@ -89,16 +94,13 @@ export default function Result() {
 		},
 	};
 	const getCourse = async () => {
-		let id = 4;
 		await axios
 			.get(
-				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${id}/`
+				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${cID}/`
 			)
 			.then((res) => {
 				console.log(res.data);
-				setRoomPrice(
-					res.data.room_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-				);
+				setRoomPrice(res.data.room_price);
 				setCity(res.data.city);
 				setResultImg(res.data.result_img);
 				setRoomName(res.data.room_name);
@@ -152,6 +154,7 @@ export default function Result() {
 				setActPrice1(res.data.act_price1);
 				setActPrice2(res.data.act_price2);
 				setActPrice3(res.data.act_price3);
+				setSum(res.data.sum);
 			})
 			.catch((err) => console.log('오류', err));
 	};
@@ -167,20 +170,22 @@ export default function Result() {
 				<Header>
 					<Title>누구와 떠날까요?</Title>
 					<Row>
-						<Single>혼자</Single>
-						<Couple
+						<Single
 							onClick={() =>
 								Router.push({
-									pathname: `/couple`,
+									pathname: '/single',
+									query: { id: sID },
 								})
 							}
 						>
-							연인
-						</Couple>
+							혼자
+						</Single>
+						<Couple>연인</Couple>
 						<Friends
 							onClick={() =>
 								Router.push({
 									pathname: '/friends',
+									query: { id: fID },
 								})
 							}
 						>
@@ -193,7 +198,7 @@ export default function Result() {
 				<Destination>#{city}_1박2일</Destination>
 				<Course>
 					<R>
-						<FinalPrice>55,000원</FinalPrice>
+						<FinalPrice>{sum}원</FinalPrice>
 						<Badge>최저가</Badge>
 					</R>
 					<Desc>
@@ -201,22 +206,19 @@ export default function Result() {
 						<br />
 						{act_price1 !== 0 && (
 							<>
-								{act_name1}{' '}
-								{act_price1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+								{act_name1} {act_price1}원
 								<br />
 							</>
 						)}
 						{act_price2 !== 0 && (
 							<>
-								{act_name2}{' '}
-								{act_price2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+								{act_name2} {act_price2}원
 								<br />
 							</>
 						)}
 						{act_price3 !== 0 && (
 							<>
-								{act_name3}{' '}
-								{act_price3.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+								{act_name3} {act_price3}원
 								<br />
 							</>
 						)}
@@ -483,24 +485,24 @@ const Couple = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
-	color: #bdbdbd;
+	border-bottom: 0.15rem solid #007aff;
 	font-size: 1.4rem;
 	font-weight: bold;
 	background-color: white;
+	color: #007aff;
+	margin-right: 2rem;
 	:focus {
 		outline: 0;
 	}
-	margin-right: 2rem;
 `;
 const Friends = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
 	font-size: 1.4rem;
-	border-bottom: 0.15rem solid #007aff;
 	font-weight: bold;
 	background-color: white;
-	color: #007aff;
+	color: #bdbdbd;
 	:focus {
 		outline: 0;
 	}

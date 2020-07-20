@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import axios from 'axios';
 import { Collapse } from 'antd';
 import SwipeableViews from 'react-swipeable-views';
 import Pagination from '@src/components/organisms/Pagination.js';
 
-export default function Result() {
+export default function SResult() {
 	const [partner, setPartner] = useState();
 	const [city, setCity] = useState('');
 	const [result_img, setResultImg] = useState();
@@ -63,8 +63,30 @@ export default function Result() {
 	const [act_price1, setActPrice1] = useState();
 	const [act_price2, setActPrice2] = useState();
 	const [act_price3, setActPrice3] = useState();
-
+	const [sum, setSum] = useState();
+	const router = useRouter();
+	let sID, cID, fID;
 	useEffect(() => {
+		if (router.query.id) sID = router.query.id;
+		else {
+			const rnum = Math.floor(Math.random() * 18 + 1);
+			if (rnum % 3 == 0) {
+				sID = rnum - 2;
+				cID = rnum - 1;
+				fID = rnum;
+			}
+			if (rnum % 3 == 1) {
+				sID = rnum;
+				cID = rnum + 1;
+				fID = rnum + 2;
+			}
+			if (rnum % 3 == 2) {
+				sID = rnum - 1;
+				cID = rnum;
+				fID = rnum + 1;
+			}
+		}
+		console.log(sID, cID, fID);
 		getCourse();
 	}, []);
 
@@ -88,10 +110,9 @@ export default function Result() {
 		},
 	};
 	const getCourse = async () => {
-		let id = 1;
 		await axios
 			.get(
-				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${id}/`
+				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${sID}/`
 			)
 			.then((res) => {
 				console.log(res.data);
@@ -149,6 +170,7 @@ export default function Result() {
 				setActPrice1(res.data.act_price1);
 				setActPrice2(res.data.act_price2);
 				setActPrice3(res.data.act_price3);
+				setSum(res.data.sum);
 			})
 			.catch((err) => console.log('오류', err));
 	};
@@ -157,7 +179,6 @@ export default function Result() {
 		setIndex(index);
 	};
 	const { Panel } = Collapse;
-	const id = 2;
 	return (
 		<>
 			<Wrapper>
@@ -168,8 +189,8 @@ export default function Result() {
 						<Couple
 							onClick={() =>
 								Router.push({
-									pathname: `/couple/${id}`,
-									query: { id: 2 },
+									pathname: `/couple`,
+									query: { id: cID },
 								})
 							}
 						>
@@ -179,7 +200,7 @@ export default function Result() {
 							onClick={() =>
 								Router.push({
 									pathname: '/friends',
-									query: { id: 3 },
+									query: { id: fID },
 								})
 							}
 						>
@@ -192,7 +213,7 @@ export default function Result() {
 				<Destination>#{city}_1박2일</Destination>
 				<Course>
 					<R>
-						<FinalPrice>55,000원</FinalPrice>
+						<FinalPrice>{sum}원</FinalPrice>
 						<Badge>최저가</Badge>
 					</R>
 					<Desc>

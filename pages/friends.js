@@ -7,7 +7,7 @@ import { Collapse } from 'antd';
 import SwipeableViews from 'react-swipeable-views';
 import Pagination from '@src/components/organisms/Pagination.js';
 
-export default function Result() {
+export default function FResult() {
 	const [partner, setPartner] = useState();
 	const [city, setCity] = useState('');
 	const [result_img, setResultImg] = useState();
@@ -63,10 +63,16 @@ export default function Result() {
 	const [act_price1, setActPrice1] = useState();
 	const [act_price2, setActPrice2] = useState();
 	const [act_price3, setActPrice3] = useState();
+	const [sum, setSum] = useState();
 	const router = useRouter();
+	let fID, sID, cID;
 	useEffect(() => {
+		console.log('friends.js', router.query.id);
+		fID = router.query.id;
+		sID = router.query.id - 2;
+		cID = router.query.id - 1;
+		console.log(sID, cID);
 		getCourse();
-		console.log('아아', router.query.id);
 	}, []);
 
 	const [payment, setPayment] = useState({ room_price: 0, activity_price: 0 });
@@ -90,14 +96,15 @@ export default function Result() {
 		},
 	};
 	const getCourse = async () => {
-		let id = 2;
 		await axios
 			.get(
-				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${id}/`
+				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${fID}/`
 			)
 			.then((res) => {
 				console.log(res.data);
-				setRoomPrice(res.data.room_price);
+				setRoomPrice(
+					res.data.room_price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+				);
 				setCity(res.data.city);
 				setResultImg(res.data.result_img);
 				setRoomName(res.data.room_name);
@@ -151,6 +158,7 @@ export default function Result() {
 				setActPrice1(res.data.act_price1);
 				setActPrice2(res.data.act_price2);
 				setActPrice3(res.data.act_price3);
+				setSum(res.data.sum);
 			})
 			.catch((err) => console.log('오류', err));
 	};
@@ -166,25 +174,27 @@ export default function Result() {
 				<Header>
 					<Title>누구와 떠날까요?</Title>
 					<Row>
-						<Single>혼자</Single>
+						<Single
+							onClick={() =>
+								Router.push({
+									pathname: '/single',
+									query: { id: sID },
+								})
+							}
+						>
+							혼자
+						</Single>
 						<Couple
 							onClick={() =>
 								Router.push({
-									pathname: '/couple',
+									pathname: `/couple`,
+									query: { id: cID },
 								})
 							}
 						>
 							연인
 						</Couple>
-						<Friends
-							onClick={() =>
-								Router.push({
-									pathname: '/friends',
-								})
-							}
-						>
-							친구
-						</Friends>
+						<Friends>친구</Friends>
 					</Row>
 				</Header>
 
@@ -192,7 +202,7 @@ export default function Result() {
 				<Destination>#{city}_1박2일</Destination>
 				<Course>
 					<R>
-						<FinalPrice>55,000원</FinalPrice>
+						<FinalPrice>{sum}원</FinalPrice>
 						<Badge>최저가</Badge>
 					</R>
 					<Desc>
@@ -479,24 +489,24 @@ const Couple = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
-	border-bottom: 0.15rem solid #007aff;
+	color: #bdbdbd;
 	font-size: 1.4rem;
 	font-weight: bold;
 	background-color: white;
-	color: #007aff;
-	margin-right: 2rem;
 	:focus {
 		outline: 0;
 	}
+	margin-right: 2rem;
 `;
 const Friends = styled.button`
 	width: 10rem;
 	height: 3rem;
 	border: none;
 	font-size: 1.4rem;
+	border-bottom: 0.15rem solid #007aff;
 	font-weight: bold;
 	background-color: white;
-	color: #bdbdbd;
+	color: #007aff;
 	:focus {
 		outline: 0;
 	}
