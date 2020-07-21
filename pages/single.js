@@ -64,7 +64,6 @@ export default function SResult() {
 	const [act_price3, setActPrice3] = useState();
 	const [sum, setSum] = useState();
 
-
 	const router = useRouter();
 	let sID, cID, fID;
 
@@ -73,23 +72,22 @@ export default function SResult() {
 			sID = Number(router.query.id);
 			cID = Number(router.query.id) + 1;
 			fID = Number(router.query.id) + 2;
-		}
-		else {
-			const rnum = Math.floor(Math.random() * 18 + 1);
-			if (rnum % 3 == 0) {
-				sID = rnum - 2;
-				cID = rnum - 1;
-				fID = rnum;
-			}
-			if (rnum % 3 == 1) {
+		} else {
+			const rnum = Math.floor(Math.random() * 30 + 2);
+			if (rnum % 3 == 2) {
 				sID = rnum;
 				cID = rnum + 1;
 				fID = rnum + 2;
 			}
-			if (rnum % 3 == 2) {
+			if (rnum % 3 == 0) {
 				sID = rnum - 1;
 				cID = rnum;
 				fID = rnum + 1;
+			}
+			if (rnum % 3 == 1) {
+				sID = rnum - 2;
+				cID = rnum - 1;
+				fID = rnum;
 			}
 		}
 		console.log(sID, cID, fID);

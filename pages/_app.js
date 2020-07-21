@@ -64,24 +64,24 @@ html,
 `;
 
 export default class Timeline extends App {
-	render() {
-		const { Component, pageProps } = this.props;
-		return (
-			<>
-				<GlobalStyle />
-				<Head>
-					<title>pyeonhang</title>
-				</Head>
-				<BestWrapper>
-					<Grey />
-					<Wrapper>
-						<Component {...pageProps} />
-					</Wrapper>
-					<Grey />
-				</BestWrapper>
-			</>
-		);
-	}
+  render() {
+    const { Component, pageProps } = this.props;
+    return (
+      <>
+        <GlobalStyle />
+        <Head>
+          <title>여행보다 편행</title>
+        </Head>
+        <BestWrapper>
+          <Grey />
+          <Wrapper>
+            <Component {...pageProps} />
+          </Wrapper>
+          <Grey />
+        </BestWrapper>
+      </>
+    );
+  }
 }
 
 const Wrapper = styled.div`

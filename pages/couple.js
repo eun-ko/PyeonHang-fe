@@ -64,7 +64,6 @@ export default function CResult() {
 	const [act_price3, setActPrice3] = useState();
 	const [sum, setSum] = useState();
 
-
 	const router = useRouter();
 	let cID, sID, fID;
 
@@ -99,7 +98,7 @@ export default function CResult() {
 	const getCourse = async () => {
 		await axios
 			.get(
-				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${cID}/`
+				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${router.query.id}/`
 			)
 			.then((res) => {
 				console.log(res.data);

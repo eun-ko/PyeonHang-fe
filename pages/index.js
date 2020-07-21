@@ -152,7 +152,7 @@ const Title2 = styled.div`
 	height: 8.6rem;
 `;
 const Title3 = styled.p`
-	font-size: 1.8rem;
+	font-size: 1.9rem;
 	font-weight: bold;
 	color: #333333;
 	text-align: center;

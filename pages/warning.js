@@ -68,6 +68,7 @@ const Wrapper = styled.div`
 	flex-direction: column;
 	align-items: center;
 	margin-bottom: 3.2rem;
+	padding:0 3rem;
 `;
 const Button = styled.button`
 	border: none;
@@ -75,7 +76,7 @@ const Button = styled.button`
 	font-weight: bold;
 	color: white;
 	background-color: #007aff;
-	width: 31.5rem;
+	width: 100%;
 	height: 4rem;
 	border-radius: 0.5rem;
 	box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.1);

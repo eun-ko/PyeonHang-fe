@@ -4,7 +4,10 @@ import Router, { useRouter } from 'next/router';
 import axios from 'axios';
 import { DatePicker } from 'antd';
 
+import Check from '../src/components/Check';
+
 export default function Confirm() {
+	const [isSubmitted, setSubmitted] = useState(false);
 	const [form, setForm] = useState({
 		username: '',
 		phone: 0,
@@ -38,7 +41,7 @@ export default function Confirm() {
 					console.log(response);
 				})
 				.catch((err) => console.log(err));
-			Router.push('/check');
+			setSubmitted(true);
 		}
 	};
 	const router = useRouter();
@@ -55,67 +58,73 @@ export default function Confirm() {
 		width: 'auto',
 	};
 	return (
-		<Wrapper>
-			<R>
-				<Back onClick={() => Router.back()}>〈 </Back>
-				<Title>#{router.query.city}_1박2일 #친구</Title>
-			</R>
-			<Label>여행 날짜</Label>
-			<RangePicker
-				onChange={handleDateChange}
-				format="MM월 DD일"
-				separator="〉"
-				style={pickerStyle}
-				placeholder={['체크인', '체크아웃']}
-				popupStyle={popupStyle}
-			/>
-			<p
-				style={{
-					color: '#eb5757',
-					fontSize: '1rem',
-					fontWeight: 300,
-					marginTop: '0.9rem',
-				}}
-			>
-				꼭 1박2일 일정으로 신청해주세요!
-			</p>
+		<>
+			{isSubmitted ? (
+				<Check />
+			) : (
+				<Wrapper>
+					<R>
+						<Back onClick={() => Router.back()}>〈 </Back>
+						<Title>#{router.query.city}_1박2일 #친구</Title>
+					</R>
+					<Label>여행 날짜</Label>
+					<RangePicker
+						onChange={handleDateChange}
+						format="MM월 DD일"
+						separator="〉"
+						style={pickerStyle}
+						placeholder={['체크인', '체크아웃']}
+						popupStyle={popupStyle}
+					/>
+					<p
+						style={{
+							color: '#eb5757',
+							fontSize: '1rem',
+							fontWeight: 300,
+							marginTop: '0.9rem',
+						}}
+					>
+						꼭 1박2일 일정으로 신청해주세요!
+					</p>
 
-			<Form>
-				<Label>여행자 이름</Label>
-				<Input
-					onChange={handleFormChange}
-					placeholder="홍길동"
-					type="text"
-					name="name"
-				/>
+					<Form>
+						<Label>여행자 이름</Label>
+						<Input
+							onChange={handleFormChange}
+							placeholder="홍길동"
+							type="text"
+							name="name"
+						/>
 
-				<Label>전화번호</Label>
-				<Input
-					placeholder="01012345678"
-					name="phone"
-					onChange={handleFormChange}
-				/>
+						<Label>전화번호</Label>
+						<Input
+							placeholder="01012345678"
+							name="phone"
+							onChange={handleFormChange}
+						/>
 
-				<Label>이메일</Label>
-				<Input
-					placeholder="pyeonhang@gmail.com"
-					type="email"
-					name="email"
-					onChange={handleFormChange}
-				/>
+						<Label>이메일</Label>
+						<Input
+							placeholder="pyeonhang@gmail.com"
+							type="email"
+							name="email"
+							onChange={handleFormChange}
+						/>
 
-				<Announce>
-					입력해주신 연락처로 예약 가능 여부,
-					<br />
-					예약금 관련 안내 및 여행코스를 전송해드립니다.
-					<br />
-					정확하게 입력했는지 다시 한번 확인 부탁드립니다.
-				</Announce>
-				<Button onClick={() => handleSubmit(form)}>
-					예약 가능여부 확인하기
-				</Button>
-			</Form>
-		</Wrapper>
+						<Announce>
+							입력해주신 연락처로 예약 가능 여부,
+							<br />
+							예약금 관련 안내 및 여행코스를 전송해드립니다.
+							<br />
+							정확하게 입력했는지 다시 한번 확인 부탁드립니다.
+						</Announce>
+						<Button onClick={() => handleSubmit(form)}>
+							예약 가능여부 확인하기
+						</Button>
+					</Form>
+				</Wrapper>
+			)}
+		</>
 	);
 }
 
