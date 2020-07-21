@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Router, { useRouter } from 'next/router';
 import axios from 'axios';
@@ -24,9 +24,13 @@ export default function Confirm() {
 		console.log(` 전송 : ${form.date}`);
 	};
 	const handleFormChange = (e) => {
-		setForm({ ...form, [e.target.name]: e.target.value });
+		setForm({
+			...form,
+			[e.target.name]: e.target.value,
+		});
+		console.log('핸드폰번호', form.phone);
 	};
-	const handleSubmit = () => {
+	const handleSubmit = (event) => {
 		const { username, phone, email, res_course, date } = form;
 		if (username.length === 0 || phone.length === 0 || email.length === 0) {
 			alert('모든 항목을 입력해주세요!');
@@ -41,6 +45,7 @@ export default function Confirm() {
 					console.log(response);
 				})
 				.catch((err) => console.log(err));
+			event.preventDefault();
 			setSubmitted(true);
 		}
 	};
@@ -93,7 +98,7 @@ export default function Confirm() {
 							onChange={handleFormChange}
 							placeholder="홍길동"
 							type="text"
-							name="name"
+							name="username"
 						/>
 
 						<Label>전화번호</Label>
@@ -118,9 +123,7 @@ export default function Confirm() {
 							<br />
 							정확하게 입력했는지 다시 한번 확인 부탁드립니다.
 						</Announce>
-						<Button onClick={() => handleSubmit(form)}>
-							예약 가능여부 확인하기
-						</Button>
+						<Button onClick={handleSubmit}>예약 가능여부 확인하기</Button>
 					</Form>
 				</Wrapper>
 			)}

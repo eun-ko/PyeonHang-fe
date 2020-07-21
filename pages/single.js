@@ -92,7 +92,7 @@ export default function SResult() {
 		}
 		console.log(sID, cID, fID);
 		getCourse();
-	}, []);
+	}, [router.query.id]);
 
 	const styles = {
 		root: {

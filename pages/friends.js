@@ -68,13 +68,16 @@ export default function FResult() {
 	let fID, sID, cID;
 
 	useEffect(() => {
+		if (!router.query.id) {
+			return;
+		}
 		console.log('friends.js', router.query.id);
 		fID = Number(router.query.id);
 		sID = Number(router.query.id) - 2;
 		cID = Number(router.query.id) - 1;
 		console.log(sID, cID, fID);
 		getCourse();
-	}, []);
+	}, [router.query.id]);
 
 	const styles = {
 		root: {

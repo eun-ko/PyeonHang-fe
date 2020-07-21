@@ -68,13 +68,16 @@ export default function CResult() {
 	let cID, sID, fID;
 
 	useEffect(() => {
+		if (!router.query.id) {
+			return;
+		}
 		console.log('couple.js', router.query.id);
 		cID = Number(router.query.id);
 		sID = Number(router.query.id) - 1;
 		fID = Number(router.query.id) + 1;
 		console.log(sID, cID, fID);
 		getCourse();
-	}, []);
+	}, [router.query.id]);
 
 	const styles = {
 		root: {

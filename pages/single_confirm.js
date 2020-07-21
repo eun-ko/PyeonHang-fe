@@ -30,7 +30,7 @@ export default function Confirm() {
 		});
 		console.log('핸드폰번호', form.phone);
 	};
-	const handleSubmit = () => {
+	const handleSubmit = (event) => {
 		const { username, phone, email, res_course, date } = form;
 		if (username.length === 0 || phone.length === 0 || email.length === 0) {
 			alert('모든 항목을 입력해주세요!');
@@ -45,6 +45,7 @@ export default function Confirm() {
 					console.log(response);
 				})
 				.catch((err) => console.log(err));
+			event.preventDefault();
 			setSubmitted(true);
 		}
 	};
