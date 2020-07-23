@@ -65,34 +65,52 @@ export default function SResult() {
 	const [sum, setSum] = useState();
 
 	const router = useRouter();
-	let sID, cID, fID;
+
+	const [IDs, setIDs] = useState([]);
+	const [rnum, setrnum] = useState();
+	//const [cID, setcID] = useState(rnum);
+	//const [sID, setsID] = useState(rnum);
+	//const [fID, setfID] = useState(rnum);
 
 	useEffect(() => {
 		if (router.query.id) {
-			sID = Number(router.query.id);
-			cID = Number(router.query.id) + 1;
-			fID = Number(router.query.id) + 2;
+			IDs[0] = Number(router.query.id);
+			IDs[1] = Number(router.query.id) + 1;
+			IDs[2] = Number(router.query.id) + 2;
+			//setIDs([sID, cID, fID]);
+			//setsID(Number(router.query.id));
+			//setcID(Number(router.query.id) + 1);
+			//setfID(Number(router.query.id) + 2);
 		} else {
 			const rnum = Math.floor(Math.random() * 30 + 2);
 			if (rnum % 3 == 2) {
-				sID = rnum;
-				cID = rnum + 1;
-				fID = rnum + 2;
+				//setsID(rnum);
+				//setcID(rnum + 1);
+				//setfID(rnum + 2);
+				IDs[0] = rnum;
+				IDs[1] = rnum + 1;
+				IDs[2] = rnum + 2;
 			}
 			if (rnum % 3 == 0) {
-				sID = rnum - 1;
-				cID = rnum;
-				fID = rnum + 1;
+				//setsID(rnum - 1);
+				//setcID(rnum);
+				//setfID(rnum + 1);
+				IDs[0] = rnum - 1;
+				IDs[1] = rnum;
+				IDs[2] = rnum + 1;
 			}
 			if (rnum % 3 == 1) {
-				sID = rnum - 2;
-				cID = rnum - 1;
-				fID = rnum;
+				//setsID(rnum - 2);
+				//setcID(rnum - 1);
+				//setfID(rnum);
+				IDs[0] = rnum - 2;
+				IDs[1] = rnum - 1;
+				IDs[2] = rnum;
 			}
 		}
-		console.log(sID, cID, fID);
-		getCourse();
-	}, [router.query.id]);
+		//console.log(sID, cID, fID);
+		getCourse(IDs[0]);
+	}, [rnum]);
 
 	const styles = {
 		root: {
@@ -113,7 +131,7 @@ export default function SResult() {
 			backgroundColor: 'white',
 		},
 	};
-	const getCourse = async () => {
+	const getCourse = async (sID) => {
 		await axios
 			.get(
 				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${sID}/`
@@ -194,7 +212,7 @@ export default function SResult() {
 							onClick={() =>
 								Router.push({
 									pathname: `/couple`,
-									query: { id: cID },
+									query: { id: IDs[1] },
 								})
 							}
 						>
@@ -204,7 +222,7 @@ export default function SResult() {
 							onClick={() =>
 								Router.push({
 									pathname: '/friends',
-									query: { id: fID },
+									query: { id: IDs[2] },
 								})
 							}
 						>
@@ -241,7 +259,7 @@ export default function SResult() {
 								<br />
 							</>
 						)}
-						{sum - room_price - act_price1 - act_price2 - act_price3}원
+						전체 예약가의 5% 수수료 포함
 					</Desc>
 					<Warn>
 						<Collapse
@@ -582,6 +600,7 @@ const CImg = styled.img`
 	width: 100%;
 	height: auto;
 	margin-bottom: 1rem;
+	margin-top: 0.5rem;
 	background-color: white;
 `;
 const Swipe = styled.div`
@@ -594,12 +613,14 @@ const Name = styled.p`
 	font-size: 2.4rem;
 	font-weight: bold;
 	width: 100%;
+	margin-bottom: 0.5rem;
 `;
 const Reserv = styled.p`
 	font-size: 1.8rem;
 	color: #007aff;
 	font-weight: 500;
 	width: 100%;
+	margin: 0;
 `;
 const Type = styled.p`
 	font-size: 1.8rem;
@@ -618,8 +639,8 @@ const Exp = styled.p`
 	color: #828282;
 	font-weight: 300;
 	display: flex;
-	width: 22.8rem;
-	height: 4rem;
+	width: 26rem;
+	height: 5rem;
 	margin-bottom: 1.3rem;
 	justify-content: space-between;
 `;
@@ -628,6 +649,7 @@ const Price = styled.p`
 	text-align: right;
 	font-size: 1.4rem;
 	font-weight: 300;
+	margin: 0;
 `;
 const Destination = styled.div`
 	width: 100%;

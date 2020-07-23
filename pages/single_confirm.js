@@ -13,8 +13,8 @@ export default function Confirm() {
 		phone: 0,
 		email: '',
 		date: '',
-		res_course: 1,
-		pay: 9,
+		res_course: 5,
+		pay: 2,
 	});
 	const handleDateChange = (value) => {
 		console.log(
@@ -30,7 +30,7 @@ export default function Confirm() {
 		});
 		console.log('핸드폰번호', form.phone);
 	};
-	const handleSubmit = (event) => {
+	const handleSubmit = () => {
 		const { username, phone, email, res_course, date } = form;
 		if (username.length === 0 || phone.length === 0 || email.length === 0) {
 			alert('모든 항목을 입력해주세요!');
@@ -45,7 +45,6 @@ export default function Confirm() {
 					console.log(response);
 				})
 				.catch((err) => console.log(err));
-			event.preventDefault();
 			setSubmitted(true);
 		}
 	};
@@ -191,7 +190,7 @@ const Input = styled.input`
 	color: #bdbdbd;
 	border: none;
 `;
-const Form = styled.form`
+const Form = styled.div`
 	width: 100%;
 	margin-bottom: 2rem;
 	display: flex;

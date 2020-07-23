@@ -65,18 +65,23 @@ export default function FResult() {
 	const [sum, setSum] = useState();
 
 	const router = useRouter();
-	let fID, sID, cID;
+
+	const [IDs, setIDs] = useState([]);
 
 	useEffect(() => {
 		if (!router.query.id) {
 			return;
 		}
 		console.log('friends.js', router.query.id);
-		fID = Number(router.query.id);
-		sID = Number(router.query.id) - 2;
-		cID = Number(router.query.id) - 1;
-		console.log(sID, cID, fID);
-		getCourse();
+
+		//setsID(Number(router.query.id) - 2);
+		//setcID(Number(router.query.id) - 1);
+		//setfID(Number(router.query.id));
+		IDs[2] = Number(router.query.id);
+		IDs[0] = Number(router.query.id) - 2;
+		IDs[1] = Number(router.query.id) - 1;
+		//setIDs([sID, cID, fID]);
+		getCourse(IDs[2]);
 	}, [router.query.id]);
 
 	const styles = {
@@ -98,7 +103,7 @@ export default function FResult() {
 			backgroundColor: 'white',
 		},
 	};
-	const getCourse = async () => {
+	const getCourse = async (fID) => {
 		await axios
 			.get(
 				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${fID}/`
@@ -181,7 +186,7 @@ export default function FResult() {
 							onClick={() =>
 								Router.push({
 									pathname: '/single',
-									query: { id: sID },
+									query: { id: IDs[0] },
 								})
 							}
 						>
@@ -191,7 +196,7 @@ export default function FResult() {
 							onClick={() =>
 								Router.push({
 									pathname: `/couple`,
-									query: { id: cID },
+									query: { id: IDs[1] },
 								})
 							}
 						>
@@ -229,7 +234,7 @@ export default function FResult() {
 								<br />
 							</>
 						)}
-						{sum - room_price - act_price1 - act_price2 - act_price3}원
+						전체 예약가의 5% 수수료 포함
 					</Desc>
 					<Warn>
 						<Collapse
@@ -565,9 +570,11 @@ const Hashtag = styled.div`
 	color: #828282;
 	margin-bottom: 5rem;
 `;
-const CImg = styled.div`
+const CImg = styled.img`
 	width: 100%;
-	height: 31.5rem;
+	height: auto;
+	margin-bottom: 1rem;
+	margin-top: 0.5rem;
 	background-color: white;
 `;
 const Swipe = styled.div`
@@ -580,12 +587,14 @@ const Name = styled.p`
 	font-size: 2.4rem;
 	font-weight: bold;
 	width: 100%;
+	margin-bottom: 0.5rem;
 `;
 const Reserv = styled.p`
 	font-size: 1.8rem;
 	color: #007aff;
 	font-weight: 500;
 	width: 100%;
+	margin: 0;
 `;
 const Type = styled.p`
 	font-size: 1.8rem;
@@ -604,8 +613,8 @@ const Exp = styled.p`
 	color: #828282;
 	font-weight: 300;
 	display: flex;
-	width: 22.8rem;
-	height: 4rem;
+	width: 26rem;
+	height: 5rem;
 	margin-bottom: 1.3rem;
 	justify-content: space-between;
 `;
@@ -614,6 +623,7 @@ const Price = styled.p`
 	text-align: right;
 	font-size: 1.4rem;
 	font-weight: 300;
+	margin: 0;
 `;
 const Destination = styled.div`
 	width: 100%;

@@ -141,7 +141,7 @@ const Title = styled.div`
 	font-weight: bold;
 `;
 const Title2 = styled.div`
-	font-size: 3.6rem;
+	font-size: 3.3rem;
 	margin-top: 4.2rem;
 	margin-bottom: 3.3rem;
 	font-weight: bold;
