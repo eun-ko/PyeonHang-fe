@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import Router from 'next/router';
-import axios from 'axios';
 import Loading from '../src/components/Loading';
 
 export default function Processing() {
@@ -10,7 +9,17 @@ export default function Processing() {
 	const [index, setIndex] = useState([]);
 	const [img, setImg] = useState();
 	const [isLoading, setLoading] = useState(false);
-
+	const imgArr = new Array();
+	imgArr[0] = '/processingimg/1.png';
+	imgArr[1] = '/processingimg/2.png';
+	imgArr[2] = '/processingimg/4.png';
+	imgArr[3] = '/processingimg/6.png';
+	imgArr[4] = '/processingimg/8.png';
+	imgArr[5] = '/processingimg/10.png';
+	imgArr[6] = '/processingimg/13.png';
+	imgArr[7] = '/processingimg/15.png';
+	imgArr[8] = '/processingimg/17.png';
+	imgArr[9] = '/processingimg/19.png';
 	useEffect(() => {
 		let temp, rnum;
 		for (let i = 0; i < 10; i++) index.push(i);
@@ -21,32 +30,16 @@ export default function Processing() {
 			index[rnum] = temp;
 		}
 		setIndex(index);
-		axios
-			.get(
-				'http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/sample-data/'
-			)
-			.then((res) => {
-				setImg(res.data[index[count]].sample_img);
-				console.log(index[count]);
-				setCount(count + 1);
-			})
-			.catch((err) => console.log(err));
+		setImg(imgArr[index[count]]);
+
 	}, []);
 
 	const getImg = async () => {
 		console.log(index);
-		await axios
-			.get(
-				'http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/sample-data/'
-			)
-			.then((res) => {
-				console.log(res.data[index[count]].sample_img);
-				setCount(count + 1);
-				setImg(res.data[index[count]].sample_img);
-				console.log(index[count]);
-			})
-			.catch((err) => console.log(err));
+		setCount(count + 1);
 
+		setImg(imgArr[index[count]]);
+		console.log(index[count]);
 		setProgress(progress + 10);
 
 		if (progress == 100) {
@@ -62,24 +55,24 @@ export default function Processing() {
 			{isLoading ? (
 				<Loading />
 			) : (
-				<>
-					<ProgressBarWrapper>
-						<ProgressBar num={progress} />
-					</ProgressBarWrapper>
+					<>
+						<ProgressBarWrapper>
+							<ProgressBar num={progress} />
+						</ProgressBarWrapper>
 
-					<Wrapper>
-						<Img2 src={img}></Img2>
-						<Bottom>
-							<Button onClick={() => getImg()}>
-								<Img src="/x.png" />
-							</Button>
-							<Button onClick={() => getImg()}>
-								<Img src="/heart.png" />
-							</Button>
-						</Bottom>
-					</Wrapper>
-				</>
-			)}
+						<Wrapper>
+							<Img2 src={img}></Img2>
+							<Bottom>
+								<Button onClick={() => getImg()}>
+									<Img src="/x.png" />
+								</Button>
+								<Button onClick={() => getImg()}>
+									<Img src="/heart.png" />
+								</Button>
+							</Bottom>
+						</Wrapper>
+					</>
+				)}
 		</>
 	);
 }

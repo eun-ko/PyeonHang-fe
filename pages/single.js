@@ -1,117 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import Router, { useRouter } from 'next/router';
-import axios from 'axios';
+import Router from 'next/router';
 import { Collapse } from 'antd';
 import SwipeableViews from 'react-swipeable-views';
 import Pagination from '@src/components/organisms/Pagination.js';
 
 export default function SResult() {
-	const [city, setCity] = useState();
-	const [result_img, setResultImg] = useState();
-	const [room_price, setRoomPrice] = useState();
-	const [room_name, setRoomName] = useState();
-	const [room_detail, setRoomDetail] = useState();
-	const [room_hash, setRoomHash] = useState();
-	const [room_img1, setRoomImg1] = useState();
-	const [room_img2, setRoomImg2] = useState();
-	const [room_img3, setRoomImg3] = useState();
-	const [meal_name1, setMealName1] = useState();
-	const [meal_name2, setMealName2] = useState();
-	const [meal_name3, setMealName3] = useState();
-	const [meal_name4, setMealName4] = useState();
-	const [meal_name5, setMealName5] = useState();
-	const [meal_name6, setMealName6] = useState();
-	const [meal_hash1, setMealHash1] = useState();
-	const [meal_hash2, setMealHash2] = useState();
-	const [meal_hash3, setMealHash3] = useState();
-	const [meal_hash4, setMealHash4] = useState();
-	const [meal_hash5, setMealHash5] = useState();
-	const [meal_hash6, setMealHash6] = useState();
-	const [meal_detail1, setMealDetail1] = useState();
-	const [meal_detail2, setMealDetail2] = useState();
-	const [meal_detail3, setMealDetail3] = useState();
-	const [meal_detail4, setMealDetail4] = useState();
-	const [meal_detail5, setMealDetail5] = useState();
-	const [meal_detail6, setMealDetail6] = useState();
-	const [meal_img1, setMealImg1] = useState();
-	const [meal_img2, setMealImg2] = useState();
-	const [meal_img3, setMealImg3] = useState();
-	const [meal_img4, setMealImg4] = useState();
-	const [meal_img5, setMealImg5] = useState();
-	const [meal_img6, setMealImg6] = useState();
-	const [meal_price1, setMealPrice1] = useState();
-	const [meal_price2, setMealPrice2] = useState();
-	const [meal_price3, setMealPrice3] = useState();
-	const [meal_price4, setMealPrice4] = useState();
-	const [meal_price5, setMealPrice5] = useState();
-	const [meal_price6, setMealPrice6] = useState();
-	const [act_name1, setActName1] = useState();
-	const [act_name2, setActName2] = useState();
-	const [act_name3, setActName3] = useState();
-	const [act_detail1, setActDetail1] = useState();
-	const [act_detail2, setActDetail2] = useState();
-	const [act_detail3, setActDetail3] = useState();
-	const [act_img1, setActImg1] = useState();
-	const [act_img2, setActImg2] = useState();
-	const [act_img3, setActImg3] = useState();
-	const [act_hash1, setActHash1] = useState();
-	const [act_hash2, setActHash2] = useState();
-	const [act_hash3, setActHash3] = useState();
-	const [act_price1, setActPrice1] = useState();
-	const [act_price2, setActPrice2] = useState();
-	const [act_price3, setActPrice3] = useState();
-	const [sum, setSum] = useState();
-
-	const router = useRouter();
-
-	const [IDs, setIDs] = useState([]);
-	const [rnum, setrnum] = useState();
-	//const [cID, setcID] = useState(rnum);
-	//const [sID, setsID] = useState(rnum);
-	//const [fID, setfID] = useState(rnum);
-
-	useEffect(() => {
-		if (router.query.id) {
-			IDs[0] = Number(router.query.id);
-			IDs[1] = Number(router.query.id) + 1;
-			IDs[2] = Number(router.query.id) + 2;
-			//setIDs([sID, cID, fID]);
-			//setsID(Number(router.query.id));
-			//setcID(Number(router.query.id) + 1);
-			//setfID(Number(router.query.id) + 2);
-		} else {
-			const rnum = Math.floor(Math.random() * 30 + 2);
-			if (rnum % 3 == 2) {
-				//setsID(rnum);
-				//setcID(rnum + 1);
-				//setfID(rnum + 2);
-				IDs[0] = rnum;
-				IDs[1] = rnum + 1;
-				IDs[2] = rnum + 2;
-			}
-			if (rnum % 3 == 0) {
-				//setsID(rnum - 1);
-				//setcID(rnum);
-				//setfID(rnum + 1);
-				IDs[0] = rnum - 1;
-				IDs[1] = rnum;
-				IDs[2] = rnum + 1;
-			}
-			if (rnum % 3 == 1) {
-				//setsID(rnum - 2);
-				//setcID(rnum - 1);
-				//setfID(rnum);
-				IDs[0] = rnum - 2;
-				IDs[1] = rnum - 1;
-				IDs[2] = rnum;
-			}
-		}
-		//console.log(sID, cID, fID);
-		getCourse(IDs[0]);
-	}, [rnum]);
-
 	const styles = {
 		root: {
 			position: 'relative',
@@ -131,71 +26,7 @@ export default function SResult() {
 			backgroundColor: 'white',
 		},
 	};
-	const getCourse = async (sID) => {
-		await axios
-			.get(
-				`http://ec2-52-79-228-174.ap-northeast-2.compute.amazonaws.com:8000/course/${sID}/`
-			)
-			.then((res) => {
-				console.log(res.data);
-				setRoomPrice(res.data.room_price);
-				setCity(res.data.city);
-				setResultImg(res.data.result_img);
-				setRoomName(res.data.room_name);
-				setRoomDetail(res.data.room_detail);
-				setRoomHash(res.data.room_hash);
-				setRoomImg1(res.data.room_img1);
-				setRoomImg2(res.data.room_img2);
-				setRoomImg3(res.data.room_img3);
-				setMealName1(res.data.meal_name1);
-				setMealName2(res.data.meal_name2);
-				setMealName3(res.data.meal_name3);
-				setMealName4(res.data.meal_name4);
-				setMealName5(res.data.meal_name5);
-				setMealName6(res.data.meal_name6);
-				setMealHash1(res.data.meal_hash1);
-				setMealHash2(res.data.meal_hash2);
-				setMealHash3(res.data.meal_hash3);
-				setMealHash4(res.data.meal_hash4);
-				setMealHash5(res.data.meal_hash5);
-				setMealHash6(res.data.meal_hash6);
-				setMealDetail1(res.data.meal_detail1);
-				setMealDetail2(res.data.meal_detail2);
-				setMealDetail3(res.data.meal_detail3);
-				setMealDetail4(res.data.meal_detail4);
-				setMealDetail5(res.data.meal_detail5);
-				setMealDetail6(res.data.meal_detail6);
-				setMealImg1(res.data.meal_img1);
-				setMealImg2(res.data.meal_img2);
-				setMealImg3(res.data.meal_img3);
-				setMealImg4(res.data.meal_img4);
-				setMealImg5(res.data.meal_img5);
-				setMealImg6(res.data.meal_img6);
-				setMealPrice1(res.data.meal_price1);
-				setMealPrice2(res.data.meal_price1);
-				setMealPrice3(res.data.meal_price1);
-				setMealPrice4(res.data.meal_price1);
-				setMealPrice5(res.data.meal_price1);
-				setMealPrice6(res.data.meal_price1);
-				setActName1(res.data.act_name1);
-				setActName2(res.data.act_name2);
-				setActName3(res.data.act_name3);
-				setActDetail1(res.data.act_detail1);
-				setActDetail2(res.data.act_detail2);
-				setActDetail3(res.data.act_detail3);
-				setActImg1(res.data.act_img1);
-				setActImg2(res.data.act_img2);
-				setActImg3(res.data.act_img3);
-				setActHash1(res.data.act_hash1);
-				setActHash2(res.data.act_hash2);
-				setActHash3(res.data.act_hash3);
-				setActPrice1(res.data.act_price1);
-				setActPrice2(res.data.act_price2);
-				setActPrice3(res.data.act_price3);
-				setSum(res.data.sum);
-			})
-			.catch((err) => console.log('오류', err));
-	};
+
 	const [index, setIndex] = useState(0);
 	const handleChangeIndex = (index) => {
 		setIndex(index);
@@ -210,20 +41,14 @@ export default function SResult() {
 						<Single>혼자</Single>
 						<Couple
 							onClick={() =>
-								Router.push({
-									pathname: `/couple`,
-									query: { id: IDs[1] },
-								})
+								Router.push('/couple')
 							}
 						>
 							연인
 						</Couple>
 						<Friends
 							onClick={() =>
-								Router.push({
-									pathname: '/friends',
-									query: { id: IDs[2] },
-								})
+								Router.push('/friends')
 							}
 						>
 							친구
@@ -231,34 +56,22 @@ export default function SResult() {
 					</Row>
 				</Header>
 
-				<Img src={result_img} />
-				<Destination>#{city}_1박2일</Destination>
+				<Img src="/s9.png" />
+				<Destination>#제주_1박2일</Destination>
 				<Course>
 					<R>
-						<FinalPrice>{sum}원</FinalPrice>
+						<FinalPrice>144,900원</FinalPrice>
 						<Badge>최저가</Badge>
 					</R>
 					<Desc>
-						{room_name} {room_price}원
+						파티월정리썬시티 20,000원
 						<br />
-						{act_price1 !== 0 && (
-							<>
-								{act_name1} {act_price1}원
+						왕복짚라인 제주 28,000원
 								<br />
-							</>
-						)}
-						{act_price2 !== 0 && (
-							<>
-								{act_name2} {act_price2}원
+						서피플퍼프 60,000원
 								<br />
-							</>
-						)}
-						{act_price3 !== 0 && (
-							<>
-								{act_name3} {act_price3}원
+						제주레일바이크 30,000원
 								<br />
-							</>
-						)}
 						전체 예약가의 5% 수수료 포함
 					</Desc>
 					<Warn>
@@ -296,8 +109,8 @@ export default function SResult() {
 				<Gray></Gray>
 				<Info>
 					<Reserv>예약 숙소</Reserv>
-					<Name>{room_name}</Name>
-					<Exp>{room_detail}</Exp>
+					<Name>파티월정리썬시티</Name>
+					<Exp>제주도 전지역 리뷰 1위 가성비 게스트하우스</Exp>
 					<Swipe style={styles.root}>
 						<SwipeableViews
 							index={index}
@@ -305,13 +118,13 @@ export default function SResult() {
 							enableMouseEvents
 						>
 							<div style={Object.assign({}, styles.slide, styles.slide1)}>
-								<Room src={room_img1} />
+								<Room src="/s1.png" />
 							</div>
 							<div style={Object.assign({}, styles.slide, styles.slide2)}>
-								<Room src={room_img2} />
+								<Room src="/s2.png" />
 							</div>
 							<div style={Object.assign({}, styles.slide, styles.slide3)}>
-								<Room src={room_img3} />
+								<Room src="/s3.png" />
 							</div>
 						</SwipeableViews>
 						<Pagination
@@ -320,119 +133,84 @@ export default function SResult() {
 							onChangeIndex={handleChangeIndex}
 						/>
 					</Swipe>
-					<Hashtag>{room_hash}</Hashtag>
+					<Hashtag>#제주도 #게스트하우스 #파티</Hashtag>
 				</Info>
 				<Info>
 					<Reserv>예약 액티비티</Reserv>
-					{act_price1 && (
-						<>
-							<Name>{act_name1}</Name>
-							<Exp>{act_detail1}</Exp>
-							<CImg src={act_img1}></CImg>
-							<Hashtag>{act_hash1}</Hashtag>
-						</>
-					)}
-					{act_price2 && (
-						<>
-							<Name>{act_name2}</Name>
-							<Exp>{act_detail2}</Exp>
-							<CImg src={act_img2}></CImg>
-							<Hashtag>{act_hash2}</Hashtag>
-						</>
-					)}
-					{act_price3 && (
-						<>
-							<Name>{act_name3}</Name>
-							<Exp>{act_detail3}</Exp>
-							<CImg src={act_img3}></CImg>
-							<Hashtag>{act_hash3}</Hashtag>
-						</>
-					)}
+
+					<Name>왕복 짚라인 제주</Name>
+					<Exp>짜릿한 짚라인타고 스릴을 느껴봐!</Exp>
+					<CImg src="/act_img1.png"></CImg>
+					<Hashtag>#제주짚라인 #짜릿한액티비티 #야외족욕은 덤!</Hashtag>
+
+					<Name>서피플서프</Name>
+					<Exp>애월바람을 가르며 윈드서핑 배워보자!</Exp>
+					<CImg src="/act_img2.png"></CImg>
+					<Hashtag>#윈드서핑 #강습포함 #빅재미</Hashtag>
+
+					<Name>제주레일바이크</Name>
+					<Exp>제주의 바람을 가르며 레일바이크 고고씽@</Exp>
+					<CImg src="/act_img3.png"></CImg>
+					<Hashtag>#레일바이크 #힐링과스릴을한번에</Hashtag>
+
 				</Info>
 				<Gray></Gray>
 				<Info>
 					<Type>식당/카페</Type>
-					<Name>{meal_name1}</Name>
-					<Exp>{meal_detail1}</Exp>
+					<Name>애월제주다</Name>
+					<Exp>제주 애월맛집 해산물 모듬장 맛집</Exp>
 					<Price>
 						<Won src="/m.png" />
-						{meal_price1}
+						3만원
 					</Price>
-					<CImg src={meal_img1}></CImg>
-					<Hashtag>{meal_hash1}</Hashtag>
+					<CImg src="/meal_img1.png"></CImg>
+					<Hashtag>#애월맛집 #신선한해물 #분위기맛집</Hashtag>
 				</Info>
 				<Info>
-					<Name>{meal_name2}</Name>
-					<Exp>{meal_detail2}</Exp>
+					<Name>흑돼지 박스</Name>
+					<Exp>성산일출봉을 바라보며 먹는 제주흑돼지</Exp>
 					<Price>
-						<Won src="/m.png" /> {meal_price2}
+						<Won src="/m.png" /> 1만 5천원
 					</Price>
-					<CImg src={meal_img2}></CImg>
-					<Hashtag>{meal_hash2}</Hashtag>
+					<CImg src="/meal_img2.png"></CImg>
+					<Hashtag>#제주도는흑돼지 #성산일출봉 #뷰맛집</Hashtag>
 				</Info>
 				<Info>
-					<Name>{meal_name3}</Name>
-					<Exp>{meal_detail3}</Exp>
+					<Name>해월정</Name>
+					<Exp>맛있는녀석들이 인정한 보말칼국수 보말죽</Exp>
 					<Price>
 						<Won src="/m.png" />
-						{meal_price3}
+						3만원
 					</Price>
-					<CImg src={meal_img3}></CImg>
-					<Hashtag>{meal_hash3}</Hashtag>
+					<CImg src="/meal_img3.png"></CImg>
+					<Hashtag>#해산물가득 #입안속바다 #로컬추천</Hashtag>
 				</Info>
 				<Info>
-					<Name>{meal_name4}</Name>
-					<Exp>{meal_detail4}</Exp>
+					<Name>제주만복이네</Name>
+					<Exp>제주시 맛집 제주 김만복 줄서서 먹는 전복김밥</Exp>
 					<Price>
-						<Won src="/m.png" /> {meal_price4}
+						<Won src="/m.png" /> 6천원
 					</Price>
-					<CImg src={meal_img4}></CImg>
-					<Hashtag>{meal_hash4}</Hashtag>
+					<CImg src="/meal_img4.png"></CImg>
+					<Hashtag>#한번쯤봤을걸 #제주머스트 #전복김밥</Hashtag>
 				</Info>
 				<Info>
-					<Name>{meal_name5}</Name>
-					<Exp>{meal_detail5}</Exp>
+					<Name>제주 프리또</Name>
+					<Exp>신발도 튀기면 맛있다던데! 해산물이 통째로!</Exp>
 					<Price>
-						<Won src="/m.png" /> {meal_price5}
+						<Won src="/m.png" /> 1만 8천원
 					</Price>
-					<CImg src={meal_img5}></CImg>
-					<Hashtag>{meal_hash5}</Hashtag>
+					<CImg src="/meal_img5.png"></CImg>
+					<Hashtag>#바사바삭 #테이크아웃 #해산물러버</Hashtag>
 				</Info>
 				<Info>
-					<Name>{meal_name6}</Name>
-					<Exp>{meal_detail6}</Exp>
+					<Name>망고레이</Name>
+					<Exp>제주에서 느끼는 망고 디저트카페</Exp>
 					<Price>
-						<Won src="/m.png" /> {meal_price6}
+						<Won src="/m.png" /> 8천원
 					</Price>
-					<CImg src={meal_img6}></CImg>
-					<Hashtag>{meal_hash6}</Hashtag>
-				</Info>
-
-				<Info>
-					{act_price1 === 0 && (
-						<>
-							<Name>{act_name1}</Name>
-							<Exp>{act_detail1}</Exp>
-							<CImg src={act_img1}></CImg>
-							<Hashtag>{act_hash1} </Hashtag>
-						</>
-					)}
-					{act_price2 === 0 && (
-						<>
-							<Name>{act_name2}</Name>
-							<Exp>{act_detail2}</Exp>
-							<CImg src={act_img2}></CImg>
-							<Hashtag>{act_hash2} </Hashtag>
-						</>
-					)}
-					{act_price3 === 0 && (
-						<>
-							<Name>{act_name3}</Name>
-							<Exp>{act_detail3}</Exp>
-							<CImg src={act_img3}></CImg>
-							<Hashtag>{act_hash3} </Hashtag>
-						</>
-					)}
+					<CImg src="/meal_img6.png"></CImg>
+					<Hashtag>#애월카페 #망고&코코넛덕후소환 #환상의조합</Hashtag>
 				</Info>
 				<Bottom>
 					<Link href="/warning">
@@ -443,7 +221,6 @@ export default function SResult() {
 						onClick={() =>
 							Router.push({
 								pathname: '/single_confirm',
-								query: { city: city },
 							})
 						}
 					>
@@ -482,6 +259,7 @@ const R = styled.div`
 const FinalPrice = styled.div`
 	font-size: 2rem;
 	font-weight: bold;
+	padding-bottom:0.5rem;
 `;
 const Badge = styled.div`
 	width: 4.2rem;
@@ -492,7 +270,7 @@ const Badge = styled.div`
 	font-size: 1.2rem;
 	font-weight: bold;
 	text-align: center;
-	margin: 0.5rem;
+	margin: 0.7rem;
 	margin-right: 0;
 `;
 const Desc = styled.div`
@@ -639,8 +417,8 @@ const Exp = styled.p`
 	color: #828282;
 	font-weight: 300;
 	display: flex;
-	width: 26rem;
-	height: 5rem;
+	width: 100%;
+	height: 3rem;
 	margin-bottom: 1.3rem;
 	justify-content: space-between;
 `;

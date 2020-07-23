@@ -69,7 +69,7 @@ export default function Confirm() {
 				<Wrapper>
 					<R>
 						<Back onClick={() => Router.back()}>〈 </Back>
-						<Title>#{router.query.city}_1박2일 #친구</Title>
+						<Title>#제주_1박2일 #친구</Title>
 					</R>
 					<Label>여행 날짜</Label>
 					<RangePicker
